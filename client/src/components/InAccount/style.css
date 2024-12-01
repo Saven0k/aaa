@@ -1,0 +1,207 @@
+.account {
+    padding: 10vh 10vw;
+    display: flex;
+    flex-direction: column;
+    
+    .newPost {
+        
+        .form {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+
+            .subs {
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+
+                h2{
+                    font-size: 22px;
+                }
+                .sub {
+                    display: flex;
+                    gap: 10px;
+                    
+                    span {
+                        font-size: 21px;
+                        font-weight: 6  00;
+                        font-style: italic;
+                    }
+    
+                    .input {
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        color: #000;
+                        outline: none;
+                        font-size: 14px;
+                        border: 1px solid #000;
+                        min-width: 950px;
+                    }
+                    .inputLike {
+                        max-height: 300px;
+                        height: 45px;
+                    }
+                    .inputLike::-webkit-scrollbar {
+                        width: 0px;
+                    }
+                }
+    
+            }
+            .button {
+                width: 130px;
+                height: 70px;
+                padding: 10px 15px;
+                background-color: #fff;
+                border-radius: 15px;
+                color: #000;
+                font-size: 18px;
+                transition: 0.5s;
+            }
+
+            .button:hover {
+                transform: scale(1.1) rotate(15deg);
+                background-color: #807e7e;
+            }
+            
+            
+        }
+
+    }
+}
+.Main {
+
+    .inputTab {
+        height: 24px;
+        width: 50vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        padding: 5px;
+        margin-bottom: 8vh;
+        input {
+            height: 24px;
+            outline: none;
+            width: 50%;
+            border:none;
+            font-size: 18px;
+            border-bottom: 1px solid black;
+        }
+
+    }
+}
+
+.posts {
+
+    gap: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .post {
+        
+        width: auto;
+        position: relative;
+        padding: 15px 35px;
+        box-shadow: 4px 8px 50px 5px rgba(0,0,0,0.37);
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-direction: row;
+
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .input {
+            border: none;
+            color: #000;
+            padding: 4px 7px;
+            background-color: #fff;
+            outline: none;
+            max-width: 1000px;
+            min-width: 1000px;
+            flex-wrap: wrap;
+            text-wrap: wrap;
+            font-size: 14px;
+            font-weight: 400;
+            font-style: normal;
+            border-radius: 15px;
+        }
+
+        .inputText {
+            resize: none;
+            height: 145px;
+            padding-top: 15px;
+            padding-left: 5px;
+            padding: 10px 15px;
+            max-height: 600px;
+        }
+
+        .inputText::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .name {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .text {
+            font-weight: 400;
+            font-size: 18px;
+        }
+
+        .img {
+            width: 15px;
+            position: absolute;
+            top: 7px;
+            right: 10px;
+            transition: 1s;
+        }
+        .img:hover {
+            transform: scale(1.1) rotate(-180deg) ;
+        }
+
+        .change {
+            margin-top: 15px;
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 3px 5px;
+            color: #000;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .change:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .save {
+            margin-top: 15px;
+            background-color: #fff;
+            
+            border-radius: 15px;
+            padding: 3px 5px;
+            color: #07d333;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .save:hover {
+            transform: scale(1.1);
+        }
+
+    }
+}

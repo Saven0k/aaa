@@ -1,0 +1,22 @@
+.all {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.er {
+    display: flex;
+
+    gap: 100px;
+    flex-direction: column;
+
+    .h1 {
+        font-size: 244px;
+        text-shadow: 31px 5px rgba(206,89,55,0.91);
+    }
+
+    .h2 {
+        font-size: 56px;
+    }
+}
