@@ -14,7 +14,10 @@ const PostList = () => {
         if (!text) {
             return posts;
         }
-        const regex = new RegExp(`^${text}`, 'i')
+
+        // https://learn.javascript.ru/regexp-boundary Не работает \b \w \c
+        const regex = new RegExp(`${text}`, 'gi')
+        
         // posts.map(({ name }) => {
         //     // console.log('-------------------------------------------')
         //     console.log(regex.test(name.toLowerCase()))
@@ -24,13 +27,14 @@ const PostList = () => {
         //             console.log(regex.test(pr.toLowerCase())))
         //     }
         // })
+
         posts.filter(({ name }) =>
-            console.log(name.split(' ').map((pr) => regex.test(pr.toLowerCase())))
+            console.log(regex.test(name.toLowerCase()), name.toLowerCase(), regex)
         )
 
 
         return posts.filter(({ name }) =>
-            regex.test(name.split(' ').map((pr) => pr.toLowerCase()))
+            regex.test(name.toLowerCase())
         )
         // return post.filter(({name}) => 
         // name.toLowerCase().includes(text.toLowerCase()))

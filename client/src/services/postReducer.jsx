@@ -25,14 +25,20 @@ const postReducer = (state = readJSON(), action) => {
 			// 		regex.test(name)
 			// 	})
 			// }
-			const regex = new RegExp(`\b${searchItem}`);
-			return state.filter (({name}) => {
-				regex.test(name)
-			})
+			// const regex = new RegExp(`\b${searchItem}`);
+			// return state.filter (({name}) => {
+			// 	regex.test(name)
+			// })
 			// return state.filter((post) => 
 			// 	post.name.toLowerCase().includes(searchItem.toLowerCase())
 			// ); 
-			
+			const regex = new RegExp(`^${text}`, 'i')
+			    //     posts.filter(({ name }) =>
+    //         console.log(name.split(' ').map((pr) => regex.test(pr.toLowerCase())))
+    //     )
+			return state.filter(({ name }) =>
+				regex.test(name.split(' ').map((pr) => regex.test(pr.toLowerCase())))
+			)
 		default:
 			return state;
 	}
