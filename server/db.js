@@ -29,7 +29,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 	}
 });
 
-
+// Функция для создания id
 function generateUniqueId() {
 	return "post_" + Date.now();
 }
@@ -56,26 +56,42 @@ async function createPost(name, text) {
 	});
 }
 
-async function viewTable() {
-    const sql = `SELECT * FROM posts`;
-    
-    return new Promise((resolve, reject) => {
-        db.run(sql, function(err) {
-            if (err) {
+// Функция для вывода данных из таблицы
+async function getAllPosts() {
+	const sql = `SELECT * FROM posts`;
+
+	return new Promise((resolve, reject) => {
+		db.all(sql, function (err, rows) {
+			if (err) {
 				console.error("Ошибка базы данных:", err.message);
 				return reject(new Error("Ошибка вывода всех постов"));
 			}
-            console.log("Записи выведены");
-            resolve({
-                message: "Пост выведен",
-            })
-        })
-    })
+			console.log("Записи выведены");
+			resolve(rows)
+		})
+	})
+}
+
+async function updatePost(id, text, name) {
+	const sql = `UPDATE posts SET name = ?, text = ? WHERE id = ?`;
+
+	return new Promise((resolve, reject) => {
+		db.run(sql, [name, text, id], function (err) {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				return reject(new Error("Ошибка обновления поста"));
+			}
+			console.log("Пост обновлен");
+			resolve();
+		});
+	});
 }
 
 // Экспортируем функции и объект базы данных
 module.exports = {
 	createPost,
 	generateUniqueId,
+	getAllPosts,
+	updatePost,
 	db, // Экспортируем объект базы данных
 };

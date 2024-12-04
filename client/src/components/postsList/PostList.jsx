@@ -4,24 +4,44 @@ import { useEffect, useState } from "react";
 import { SearchPost } from "../../services/actions";
 
 const PostList = () => {
-	const posts = useSelector((state) => state.posts);
+	// const posts = useSelector((state) => state.posts);
 
-	const [postsList, setPostsLists] = useState(posts);
+	const [postsList, setPostsLists] = useState([]);
 	const [searchItem, setSearchItem] = useState("");
+
+	async function getPosts() {
+		try {
+			const response = await fetch('/posts');
+			const data = await response.json();
+
+			if (!response.ok) {
+				throw new Error(data.message || 'Не удалось получить список постов');
+			}
+
+			console.log('Список постов получен:', data.posts);
+			setPostsLists(data.posts)
+			return data.posts;
+		} catch (error) {
+			console.error('Ошибка при получении списка постов:', error);
+		}
+	}
 
 	const filter = (text, posts) => {
 		if (!text) {
 			return posts;
 		}
-        const regex = new RegExp(`(^|\\s)${text}`, 'iu');
+		const regex = new RegExp(`(^|\\s)${text}`, 'iu');
 		const filteredPosts = posts.filter(({ name }) => regex.test(name));
 		return posts.filter(({ name }) => regex.test(name.toLowerCase()));
 	};
 
 	useEffect(() => {
-		const filterPost = filter(searchItem, posts);
+		getPosts()
+		const filterPost = filter(searchItem, postsList);
 		setPostsLists(filterPost);
 	}, [searchItem]);
+
+
 
 	const AllOk = () => {
 		return postsList.map((post, index) => (
@@ -71,7 +91,7 @@ const PostList = () => {
 			</div>
 
 			<div className="posts">
-				{postsList.length != 0 ? AllOk() : NothingNot()}
+				{AllOk()}
 			</div>
 		</div>
 	);

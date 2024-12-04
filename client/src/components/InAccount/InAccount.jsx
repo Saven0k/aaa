@@ -16,16 +16,33 @@ const InAccount = () => {
 	const [newName, setNewName] = useState("");
 	const [newText, setNewText] = useState("");
 
-	const filter = (text, post) => {
+	const updatePost = (postId, updateName, updateText) => {
+		fetch(`/update/${ postId }`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				id: postId,
+				name: updateName,
+				text: updateText,
+			}),
+		})
+			.then(response => response.json())
+			.then(data => console.log(data))
+			.catch(error => console.error(error));
+	}
+
+	const filter = (text, posts) => {
 		if (!text) {
-			return post;
+			return posts;
 		}
-		return post.filter(({ name }) =>
-			name.toLowerCase().includes(text.toLowerCase())
-		);
+		const regex = new RegExp(`(^|\\s)${text}`, 'iu');
+		const filteredPosts = posts.filter(({ name }) => regex.test(name));
+		return posts.filter(({ name }) => regex.test(name.toLowerCase()));
 	};
 
-	async function req(nameA, textA) {
+	async function add(nameA, textA) {
 		fetch("/add", {
 			method: "POST",
 			headers: {
@@ -40,18 +57,36 @@ const InAccount = () => {
 			.then((data) => console.log(data));
 	}
 
-    const getPosts =() => {
-        fetch('/add')
-        .then((response) => response.json())
-        .then(data => setPostsLists(data))
-    }
+	// const getPosts = () => {
+	// 	fetch('/posts')
+	// 		.then((response) => response.json())
+	// 		.then(data => setPostsLists(data))
+	// }
+	async function getPosts() {
+		try {
+			const response = await fetch('/posts');
+			const data = await response.json();
 
-	useEffect(() => {
+			if (!response.ok) {
+				throw new Error(data.message || 'Не удалось получить список постов');
+			}
 
+			console.log('Список постов получен:', data.posts);
+			setPostsLists(data.posts)
+			return data.posts;
+		} catch (error) {
+			console.error('Ошибка при получении списка постов:', error);
+		}
+	}
+
+	useEffect(() => {	
 		const filterPost = filter(searchItem, posts);
 		setPostsLists(filterPost);
 	}, [searchItem]);
 
+	useEffect(() => {
+		getPosts()
+	}, [name])
 	// const handleClick = (namePost, textPost) => {
 	//     // AddPost(posts.lenth + 1, namePost, textPost)
 	//     posts.push(value)
@@ -63,23 +98,19 @@ const InAccount = () => {
 	// }
 
 	const writeTo = (e) => {
-        e.preventDefault()
-        req(name, text);
+		e.preventDefault()
+		add(name, text);
 		setName("");
 		setText("");
 	};
-
-	const changePost = (id, name, text) => {
-		return <>{/* Вывоз функции для изменения поста */}</>;
-	};
-	const funcToTallInput = (e) => {
-		const textarea = document.querySelector(`.${e}`);
-		textarea.addEventListener("keyup", (g) => {
-			textarea.style.height = "45px";
-			let scHeight = g.target.scrollHeight;
-			textarea.style.height = `${scHeight}px`;
-		});
-	};
+	// const funcToTallInput = (e) => {
+	// 	const textarea = document.querySelector(`.${e}`);
+	// 	textarea.addEventListener("keyup", (g) => {
+	// 		textarea.style.height = "45px";
+	// 		let scHeight = g.target.scrollHeight;
+	// 		textarea.style.height = `${scHeight}px`;
+	// 	});
+	// };
 
 	const AllOk = () => {
 		return postsList.map((post, index) => (
@@ -111,7 +142,7 @@ const InAccount = () => {
 						maxLength={25000}
 						id={post.id}
 						required
-						onKeyUp={(e) => funcToTallInput(post.id)}
+						// onKeyUp={(e) => funcToTallInput(post.id)}
 						name="NewText"
 						style={{
 							border:
@@ -136,7 +167,7 @@ const InAccount = () => {
 						<button
 							className="save"
 							onClick={() => {
-								changePost(post.id, newName, newText);
+								updatePost(post.id, newName, newText);
 								setIdActivePost(null);
 							}}
 							style={{
@@ -195,7 +226,7 @@ const InAccount = () => {
 								name="text"
 								type="text"
 								placeholder="Введите содержание"
-								onKeyUp={(e) => funcToTallInput("inputLike")}
+								// onKeyUp={(e) => funcToTallInput("inputLike")}
 							/>
 						</div>
 					</div>

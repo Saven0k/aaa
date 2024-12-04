@@ -24,8 +24,6 @@ const IndexPage = () => {
 	}
 	return (
 		<>
-			<button onClick={req}>post</button>
-			<button onClick={api}>api</button>
 			<Header />
 			<PostList />
 			<Footer />
