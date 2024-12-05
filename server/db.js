@@ -39,7 +39,6 @@ async function createPost(name, text) {
 	const userId = generateUniqueId();
 	const sql = `INSERT INTO posts (id, name, text) VALUES (?, ?, ?)`;
 
-
 	return new Promise((resolve, reject) => {
 		db.run(sql, [userId, name, text], function (err) {
 			if (err) {
@@ -67,9 +66,9 @@ async function getAllPosts() {
 				return reject(new Error("Ошибка вывода всех постов"));
 			}
 			console.log("Записи выведены");
-			resolve(rows)
-		})
-	})
+			resolve(rows);
+		});
+	});
 }
 
 async function updatePost(id, text, name) {
@@ -82,7 +81,7 @@ async function updatePost(id, text, name) {
 				return reject(new Error("Ошибка обновления поста"));
 			}
 			console.log("Пост обновлен");
-			resolve();
+			resolve("OK");
 		});
 	});
 }

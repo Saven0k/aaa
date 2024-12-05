@@ -7,22 +7,25 @@ const PostList = () => {
 	// const posts = useSelector((state) => state.posts);
 
 	const [postsList, setPostsLists] = useState([]);
+	const [filteredPostsList, setFilteredPostsLists] = useState([]);
 	const [searchItem, setSearchItem] = useState("");
 
 	async function getPosts() {
 		try {
-			const response = await fetch('/posts');
+			const response = await fetch("/posts");
 			const data = await response.json();
 
 			if (!response.ok) {
-				throw new Error(data.message || 'Не удалось получить список постов');
+				throw new Error(
+					data.message || "Не удалось получить список постов"
+				);
 			}
 
-			console.log('Список постов получен:', data.posts);
-			setPostsLists(data.posts)
+			console.log("Список постов получен:", data.posts);
+			setPostsLists(data.posts);
 			return data.posts;
 		} catch (error) {
-			console.error('Ошибка при получении списка постов:', error);
+			console.error("Ошибка при получении списка постов:", error);
 		}
 	}
 
@@ -30,21 +33,21 @@ const PostList = () => {
 		if (!text) {
 			return posts;
 		}
-		const regex = new RegExp(`(^|\\s)${text}`, 'iu');
+		const regex = new RegExp(`(^|\\s)${text}`, "iu");
 		const filteredPosts = posts.filter(({ name }) => regex.test(name));
 		return posts.filter(({ name }) => regex.test(name.toLowerCase()));
 	};
 
 	useEffect(() => {
-		getPosts()
 		const filterPost = filter(searchItem, postsList);
-		setPostsLists(filterPost);
+		setFilteredPostsLists(filterPost);
 	}, [searchItem]);
-
-
+	useEffect(() => {
+		getPosts();
+	}, []);
 
 	const AllOk = () => {
-		return postsList.map((post, index) => (
+		return filteredPostsList.map((post, index) => (
 			<div className="postKey" key={index}>
 				<div className="name">{post.name}</div>
 				<div className="text">{post.text}</div>
@@ -90,9 +93,7 @@ const PostList = () => {
 				/>
 			</div>
 
-			<div className="posts">
-				{AllOk()}
-			</div>
+			<div className="posts">{AllOk()}</div>
 		</div>
 	);
 };

@@ -10,35 +10,42 @@ const InAccount = () => {
 	const [name, setName] = useState("");
 	const [text, setText] = useState("");
 
+	const [filteredPostsList, setFilteredPostsLists] = useState([]);
+
 	const [postsList, setPostsLists] = useState(posts);
 	const [searchItem, setSearchItem] = useState("");
 	const [idActivePost, setIdActivePost] = useState(null);
 	const [newName, setNewName] = useState("");
 	const [newText, setNewText] = useState("");
 
-	const updatePost = (postId, updateName, updateText) => {
-		fetch(`/update/${ postId }`, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				id: postId,
-				name: updateName,
-				text: updateText,
-			}),
-		})
-			.then(response => response.json())
-			.then(data => console.log(data))
-			.catch(error => console.error(error));
-	}
+	const updatePost = async (postId, updateName, updateText) => {
+		try {
+			const res = fetch(`/update/${postId}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					id: postId,
+					name: updateName,
+					text: updateText,
+				}),
+			});
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.message || "put error");
+			return true;
+		} catch (err) {
+			console.log(err);
+			return false;
+		}
+	};
 
 	const filter = (text, posts) => {
 		if (!text) {
 			return posts;
 		}
-		const regex = new RegExp(`(^|\\s)${text}`, 'iu');
-		const filteredPosts = posts.filter(({ name }) => regex.test(name));
+		const regex = new RegExp(`(^|\\s)${text}`, "iu");
+		// const filteredPosts = posts.filter(({ name }) => regex.test(name));
 		return posts.filter(({ name }) => regex.test(name.toLowerCase()));
 	};
 
@@ -62,43 +69,52 @@ const InAccount = () => {
 	// 		.then((response) => response.json())
 	// 		.then(data => setPostsLists(data))
 	// }
+	function handleSearch(value) {
+		setSearchItem(value);
+		setFilteredPostsLists(filter(value, postsList));
+	}
+
 	async function getPosts() {
 		try {
-			const response = await fetch('/posts');
+			const response = await fetch("/posts");
 			const data = await response.json();
 
 			if (!response.ok) {
-				throw new Error(data.message || 'Не удалось получить список постов');
+				throw new Error(
+					data.message || "Не удалось получить список постов"
+				);
 			}
 
-			console.log('Список постов получен:', data.posts);
-			setPostsLists(data.posts)
+			console.log("Список постов получен:", data.posts);
 			return data.posts;
 		} catch (error) {
-			console.error('Ошибка при получении списка постов:', error);
+			console.error("Ошибка при получении списка постов:", error);
 		}
 	}
 
-	useEffect(() => {	
-		const filterPost = filter(searchItem, posts);
-		setPostsLists(filterPost);
-	}, [searchItem]);
+	// useEffect(() => {
+	// 	const filterPost = filter(searchItem, postsList);
+	// 	setFilteredPostsLists(filterPost);
+	// }, [searchItem]);
+	async function prepareData() {
+		const posts = await getPosts();
+		setPostsLists(posts);
+		setFilteredPostsLists(posts);
+	}
+
+	async function handleSavePostBtnPress(postID, newName, newText) {
+		const res = await updatePost(postID, newName, newText);
+		if (!res) return false;
+		setIdActivePost(null);
+		setPostsLists()
+	}
 
 	useEffect(() => {
-		getPosts()
-	}, [name])
-	// const handleClick = (namePost, textPost) => {
-	//     // AddPost(posts.lenth + 1, namePost, textPost)
-	//     posts.push(value)
-	//     AddPost({
-	//         "id": posts.length + 1,
-	//         "name": namePost,
-	//         "text": textPost
-	//     })
-	// }
+		prepareData();
+	}, []);
 
 	const writeTo = (e) => {
-		e.preventDefault()
+		e.preventDefault();
 		add(name, text);
 		setName("");
 		setText("");
@@ -113,7 +129,7 @@ const InAccount = () => {
 	// };
 
 	const AllOk = () => {
-		return postsList.map((post, index) => (
+		return filteredPostsList.map((post, index) => (
 			<div className="post" key={index}>
 				<div
 					className="inputs"
@@ -167,8 +183,11 @@ const InAccount = () => {
 						<button
 							className="save"
 							onClick={() => {
-								updatePost(post.id, newName, newText);
-								setIdActivePost(null);
+								handleSavePostBtnPress(
+									post.id,
+									newName,
+									newText
+								);
 							}}
 							style={{
 								display: idActivePost != null ? "flex" : "none",
@@ -198,7 +217,12 @@ const InAccount = () => {
 	return (
 		<div className="account">
 			<div className="newPost">
-				<form id="form" action="submit" className="form" onSubmit={(e) => writeTo(e)}>
+				<form
+					id="form"
+					action="submit"
+					className="form"
+					onSubmit={(e) => writeTo(e)}
+				>
 					<div className="subs">
 						<h2>Добавление новой задачи: </h2>
 
@@ -261,7 +285,7 @@ const InAccount = () => {
 						placeholder="Введите что-то"
 						className="input"
 						maxLength={15}
-						onChange={(e) => setSearchItem(e.target.value)}
+						onChange={(e) => handleSearch(e.target.value)}
 					/>
 				</div>
 

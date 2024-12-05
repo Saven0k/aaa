@@ -7,9 +7,9 @@ export default defineConfig({
 		// port: 3000,
 		proxy: {
 			"/api": "http://localhost:5000",
-			"/add":"http://localhost:5000",
-			"/posts":"http://localhost:5000",
-			"/update/*":"http://localhost:5000",
+			"/add": "http://localhost:5000",
+			"/posts": "http://localhost:5000",
+			"/update": "http://localhost:5000",
 		},
 	},
 });
