@@ -1,67 +1,38 @@
-import { useDispatch, useSelector } from "react-redux";
+import { filter } from "../../services/filterFunc";
+import { getPosts } from "../../services/workWithBd";
+import { NothingNot, PostsListOkView } from "../PostListOk/PostListOk";
 import "./style.css";
 import { useEffect, useState } from "react";
-import { SearchPost } from "../../services/actions";
 
 const PostList = () => {
-	// const posts = useSelector((state) => state.posts);
 
+	// State for posts list
 	const [postsList, setPostsLists] = useState([]);
+
+	// State for filtered posts list.
 	const [filteredPostsList, setFilteredPostsLists] = useState([]);
+
+	// State for search item.
 	const [searchItem, setSearchItem] = useState("");
 
-	async function getPosts() {
-		try {
-			const response = await fetch("/posts");
-			const data = await response.json();
 
-			if (!response.ok) {
-				throw new Error(
-					data.message || "Не удалось получить список постов"
-				);
-			}
-
-			console.log("Список постов получен:", data.posts);
-			setPostsLists(data.posts);
-			return data.posts;
-		} catch (error) {
-			console.error("Ошибка при получении списка постов:", error);
-		}
+	// Function to query data from a database.
+	async function prepareData() {
+		const posts = await getPosts();
+		setPostsLists(posts);
+		setFilteredPostsLists(posts);
 	}
 
-	const filter = (text, posts) => {
-		if (!text) {
-			return posts;
-		}
-		const regex = new RegExp(`(^|\\s)${text}`, "iu");
-		const filteredPosts = posts.filter(({ name }) => regex.test(name));
-		return posts.filter(({ name }) => regex.test(name.toLowerCase()));
-	};
-
+	// After the page loads, return prepareData() 
 	useEffect(() => {
-		const filterPost = filter(searchItem, postsList);
-		setFilteredPostsLists(filterPost);
-	}, [searchItem]);
-	useEffect(() => {
-		getPosts();
+		prepareData();
 	}, []);
 
-	const AllOk = () => {
-		return filteredPostsList.map((post, index) => (
-			<div className="postKey" key={index}>
-				<div className="name">{post.name}</div>
-				<div className="text">{post.text}</div>
-			</div>
-		));
-	};
-
-	const NothingNot = () => {
-		return (
-			<div>
-				<h1>Ничего не найдено</h1>
-			</div>
-		);
-	};
+	// Function to record the value, define and modify the filtered list.
+	function handleSearch(value) {
+		setSearchItem(value);
+		setFilteredPostsLists(filter(value, postsList));
+	}
 
 	return (
 		<div className="Main">
@@ -89,11 +60,13 @@ const PostList = () => {
 					placeholder="Введите что-то"
 					className="input"
 					maxLength={15}
-					onChange={(e) => setSearchItem(e.target.value)}
+					onChange={(e) => handleSearch(e.target.value)}
 				/>
 			</div>
 
-			<div className="posts">{AllOk()}</div>
+			<div className="posts">
+				{filteredPostsList.length != 0 ? PostsListOkView(filteredPostsList) : NothingNot()}
+			</div>
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 const express = require("express");
-const { createPost, db, getAllPosts,updatePost } = require("./db"); // Импортируем функцию createPost  и объект db
+const { createPost, db, getAllPosts, updatePost, deletePost } = require("./db"); // Импортируем функцию createPost  и объект db
 const app = express();
 const PORT = 5000;
 
@@ -29,13 +29,23 @@ app.post("/add", async (req, res) => {
 
 // Функция для обновления поста
 app.put('/update/:id', async (req, res) => {
-	const id = req.params.id
-	const {name, text } = req.body;
+	const { id, name, text } = req.body;
 	try {
 		await updatePost(id, name, text);
 		res.json({ message: 'Пост обновлен' });
 	} catch (error) {
 		res.status(500).json({ message: error.message });
+	}
+});
+
+app.delete('/delete/:id', async (req, res) => {
+	try {
+		const { postId } = req.params.id;
+		await deletePost(db, postId);
+		res.json({message:'Post deleted successfully', status: "ok"});
+	} catch (err) {
+		console.error('Error deleting post: ', err);
+		res.status(500).send('Error deleting post');
 	}
 });
 

@@ -71,7 +71,9 @@ async function getAllPosts() {
 	});
 }
 
-async function updatePost(id, text, name) {
+
+// Функция для обновление
+async function updatePost(id, name, text) {
 	const sql = `UPDATE posts SET name = ?, text = ? WHERE id = ?`;
 
 	return new Promise((resolve, reject) => {
@@ -86,11 +88,28 @@ async function updatePost(id, text, name) {
 	});
 }
 
+async function deletePost(id) {
+	const sql = 'DELETE FROM posts WHERE id = ?';
+
+	return new Promise((resolve, reject) => {
+		db.run(sql, [id], (err) => {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				reject(new Error("Ошибка удаление поста с id: ", id));
+			} else {
+				console.log(`Пост с id ${id} удален`);
+				resolve("OK");
+			}
+		});
+	})
+}
+
 // Экспортируем функции и объект базы данных
 module.exports = {
 	createPost,
 	generateUniqueId,
 	getAllPosts,
 	updatePost,
+	deletePost,
 	db, // Экспортируем объект базы данных
 };
