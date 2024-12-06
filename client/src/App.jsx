@@ -4,7 +4,6 @@ import ErrorPage from "./pages/404";
 import AdminPage from "./pages/AdminPage";
 import InAccount from "./components/InAccount/InAccount";
 
-
 function App() {
 	return (
 		<BrowserRouter>

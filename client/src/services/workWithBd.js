@@ -1,3 +1,10 @@
+/**
+ * Updates the content of an existing post in the database.
+ * @param {string} postId 
+ * @param {string} updateName 
+ * @param {string} updateText 
+ * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
+ */
 export const updatePost = async (postId, updateName, updateText) => {
     try {
         const res = await fetch(`/update/${postId}`, {
@@ -21,6 +28,10 @@ export const updatePost = async (postId, updateName, updateText) => {
 };
 
 
+/**
+ *  Retrieves all records from the database.
+ * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
+ */
 export async function getPosts() {
     try {
         const response = await fetch("/posts");
@@ -39,6 +50,12 @@ export async function getPosts() {
     }
 }
 
+
+/**
+ *  Adds a new post to the database.
+ * @param {string} newName 
+ * @param {string} newText 
+ */
 export async function addPost(newName, newText) {
     fetch("/add", {
         method: "POST",
@@ -55,6 +72,11 @@ export async function addPost(newName, newText) {
 };
 
 
+/**
+ * Deletes a post from the database.
+ * @param {string} id 
+ * @returns  bool: True if the post was successfully deleted, False otherwise.
+ */
 export async function deletePost(id) {
     try {
         const response = await fetch(`/delete/${id}`, {

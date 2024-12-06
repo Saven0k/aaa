@@ -1,10 +1,13 @@
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 
-// Путь к базе данных
+// Database path
 const dbPath = path.join(__dirname, "db", "posts.db");
 
-// Инициализация базы данных
+
+/**
+ * Initializing the Database
+ */
 const db = new sqlite3.Database(dbPath, (err) => {
 	if (err) {
 		console.error("Ошибка при открытии базы данных:", err.message);
@@ -29,12 +32,22 @@ const db = new sqlite3.Database(dbPath, (err) => {
 	}
 });
 
-// Функция для создания id
+
+/**
+ * Function to create id
+ * @returns {string} ID
+ */
 function generateUniqueId() {
 	return "post_" + Date.now();
 }
 
-// Функция для создания поста
+
+/**
+ * Function for creating a post
+ * @param {string} name 
+ * @param {string} text 
+ * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
+ */
 async function createPost(name, text) {
 	const userId = generateUniqueId();
 	const sql = `INSERT INTO posts (id, name, text) VALUES (?, ?, ?)`;
@@ -55,7 +68,10 @@ async function createPost(name, text) {
 	});
 }
 
-// Функция для вывода данных из таблицы
+/**
+ * // Function to display data from a table
+ * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
+ */
 async function getAllPosts() {
 	const sql = `SELECT * FROM posts`;
 
@@ -71,8 +87,13 @@ async function getAllPosts() {
 	});
 }
 
-
-// Функция для обновление
+/**
+ * Function to update
+ * @param {string} id 
+ * @param {string} name 
+ * @param {string} text 
+ * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
+ */
 async function updatePost(id, name, text) {
 	const sql = `UPDATE posts SET name = ?, text = ? WHERE id = ?`;
 
@@ -88,6 +109,11 @@ async function updatePost(id, name, text) {
 	});
 }
 
+/**
+ * Deletes a post from the database.
+ * @param {string} id 
+ * @returns bool: True if the post was successfully deleted, False otherwise.
+ */
 async function deletePost(id) {
 	const sql = 'DELETE FROM posts WHERE id = ?';
 
@@ -104,12 +130,14 @@ async function deletePost(id) {
 	})
 }
 
-// Экспортируем функции и объект базы данных
+/**
+ * Exporting functions and a database object
+ */
 module.exports = {
 	createPost,
 	generateUniqueId,
 	getAllPosts,
 	updatePost,
 	deletePost,
-	db, // Экспортируем объект базы данных
+	db,
 };

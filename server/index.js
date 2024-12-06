@@ -1,13 +1,20 @@
 const express = require("express");
-const { createPost, db, getAllPosts, updatePost, deletePost } = require("./db"); // Импортируем функцию createPost  и объект db
+const { createPost, db, getAllPosts, updatePost, deletePost } = require("./db"); // Importing the createPost function and the db object
 const app = express();
+
+// Port used
 const PORT = 5000;
 
-// Middleware для парсинга JSON
+/**
+ * Middleware for JSON parsing
+ */
 app.use(express.json());
 
-// Функция для получения всех постов
-app.get("/posts", async (req, res) => {
+
+/**
+ * Get posts, api
+ */
+app.get("/api/posts", async (req, res) => {
 	try {
 		const posts = await getAllPosts();
 		res.json({ posts }); // Отправляем список постов в формате JSON
@@ -16,8 +23,11 @@ app.get("/posts", async (req, res) => {
 	}
 });
 
-//Функция для добавления записи
-app.post("/add", async (req, res) => {
+
+/**
+ * Add post, api
+ */
+app.post("/api/add", async (req, res) => {
 	const { name, text } = req.body;
 	try {
 		const result = await createPost(name, text);
@@ -27,8 +37,10 @@ app.post("/add", async (req, res) => {
 	}
 });
 
-// Функция для обновления поста
-app.put("/update/:id", async (req, res) => {
+/**
+ * Update post, api
+ */
+app.put("/api/update/:id", async (req, res) => {
 	const { id, name, text } = req.body;
 	try {
 		await updatePost(id, name, text);
@@ -38,7 +50,10 @@ app.put("/update/:id", async (req, res) => {
 	}
 });
 
-app.delete("/delete/:id", async (req, res) => {
+/**
+ * Remove post,  api
+ */
+app.delete("/api/delete/:id", async (req, res) => {
 	try {
 		const { id: postId } = req.params;
 		await deletePost(postId);
@@ -49,11 +64,17 @@ app.delete("/delete/:id", async (req, res) => {
 	}
 });
 
+
+/**
+ * Port listener
+ */
 const server = app.listen(PORT, () => {
 	console.log(`Сервер запущен на http://localhost:${PORT}`);
 });
 
-// Обработка SIGINT для корректного закрытия базы данных
+/**
+ * Handling SIGINT to shut down the database gracefully
+ */
 process.on("SIGINT", () => {
 	db.close((err) => {
 		if (err) {
