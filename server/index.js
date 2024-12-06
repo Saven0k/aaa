@@ -7,14 +7,14 @@ const PORT = 5000;
 app.use(express.json());
 
 // Функция для получения всех постов
-app.get('/posts', async (req, res) => {
+app.get("/posts", async (req, res) => {
 	try {
 		const posts = await getAllPosts();
 		res.json({ posts }); // Отправляем список постов в формате JSON
 	} catch (error) {
-		res.status(500).json({ message: error.message })
+		res.status(500).json({ message: error.message });
 	}
-})
+});
 
 //Функция для добавления записи
 app.post("/add", async (req, res) => {
@@ -28,24 +28,24 @@ app.post("/add", async (req, res) => {
 });
 
 // Функция для обновления поста
-app.put('/update/:id', async (req, res) => {
+app.put("/update/:id", async (req, res) => {
 	const { id, name, text } = req.body;
 	try {
 		await updatePost(id, name, text);
-		res.json({ message: 'Пост обновлен' });
+		res.json({ message: "Пост обновлен" });
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
 });
 
-app.delete('/delete/:id', async (req, res) => {
+app.delete("/delete/:id", async (req, res) => {
 	try {
-		const { postId } = req.params.id;
-		await deletePost(db, postId);
-		res.json({message:'Post deleted successfully', status: "ok"});
+		const { id: postId } = req.params;
+		await deletePost(postId);
+		res.json({ message: "Post deleted successfully", status: "ok" });
 	} catch (err) {
-		console.error('Error deleting post: ', err);
-		res.status(500).send('Error deleting post');
+		console.error("Error deleting post: ", err);
+		res.status(500).send("Error deleting post");
 	}
 });
 

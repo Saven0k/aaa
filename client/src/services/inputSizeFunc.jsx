@@ -1,6 +1,6 @@
 // Функция для увеличения размера textarea
 
-const funcToTallInput = (e) => {
+export const funcToTallInput = (e) => {
     const textarea = document.querySelector(`.${e}`);
     textarea.addEventListener("keyup", (g) => {
         textarea.style.height = "45px";

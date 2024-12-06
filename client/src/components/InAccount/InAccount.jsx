@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import "./style.css";
 import esc from "./images/delete.svg";
-import { addPost, deletePost, getPosts, updatePost } from "../../services/workWithBd";
+import {
+	addPost,
+	deletePost,
+	getPosts,
+	updatePost,
+} from "../../services/workWithBd";
 import { filter } from "../../services/filterFunc";
 import { NothingNot } from "../PostListOk/PostListOk";
+import { funcToTallInput } from "../../services/inputSizeFunc";
 
 const InAccount = () => {
-
 	// State for posts list
 	const [postsList, setPostsLists] = useState([]);
 
@@ -14,20 +19,18 @@ const InAccount = () => {
 	const [nameNewPost, setNameNewPost] = useState("");
 	const [textNewPost, setTextNewPost] = useState("");
 
-
 	// State for filtered posts list.
 	const [filteredPostsList, setFilteredPostsLists] = useState([]);
 
 	// State for search item.
 	const [searchItem, setSearchItem] = useState("");
 
-	//  State post id for active change. 
+	//  State post id for active change.
 	const [idActivePost, setIdActivePost] = useState(null);
 
 	// State for editing post {name,text}
 	const [newName, setNewName] = useState("");
 	const [newText, setNewText] = useState("");
-
 
 	// Function to query data from a database.
 	async function prepareData() {
@@ -41,16 +44,25 @@ const InAccount = () => {
 		const res = await updatePost(postID, newName, newText);
 		if (!res) return false;
 		setIdActivePost(null);
-		setPostsLists(filteredPostsList.map((post) => {
-			post.id === postID ? { ...post, name: newName, text: newText } : post
-		}))
-		setFilteredPostsLists(filteredPostsList.map((post) => {
-			post.id === postID ? { ...post, name: newName, text: newText } : post
-		}))
-		prepareData()
+		setPostsLists(
+			postsList.map((post) => {
+				return post.id === postID
+					? { ...post, name: newName, text: newText }
+					: post;
+			})
+		);
+
+		setFilteredPostsLists(
+			filteredPostsList.map((post) => {
+				return post.id === postID
+					? { ...post, name: newName, text: newText }
+					: post;
+			})
+		);
+		prepareData();
 	}
 
-	// After the page loads, return prepareData() 
+	// After the page loads, return prepareData()
 	useEffect(() => {
 		prepareData();
 	}, []);
@@ -67,7 +79,7 @@ const InAccount = () => {
 		addPost(nameNewPost, textNewPost);
 		setNameNewPost("");
 		setTextNewPost("");
-		prepareData()
+		prepareData();
 	};
 
 	// List with filtered posts, if all ok.
@@ -101,7 +113,7 @@ const InAccount = () => {
 						maxLength={25000}
 						id={post.id}
 						required
-						// onKeyUp={(e) => funcToTallInput(post.id)}
+						onKeyUp={(e) => funcToTallInput("inputText")}
 						name="NewText"
 						style={{
 							border:
@@ -144,8 +156,8 @@ const InAccount = () => {
 					className="img"
 					src={esc}
 					onClick={() => {
-						deletePost(post.id)
-						getPosts();
+						deletePost(post.id);
+						prepareData();
 					}}
 				/>
 			</div>
@@ -183,12 +195,12 @@ const InAccount = () => {
 								className="input inputLike"
 								value={textNewPost}
 								onChange={(e) => setTextNewPost(e.target.value)}
-								maxLength={450}
+								maxLength={1500}
 								id="text"
 								name="text"
 								type="text"
 								placeholder="Введите содержание"
-							// onKeyUp={(e) => funcToTallInput("inputLike")}
+								onKeyUp={(e) => funcToTallInput("inputLike")}
 							/>
 						</div>
 					</div>
@@ -228,7 +240,9 @@ const InAccount = () => {
 				</div>
 
 				<div className="posts">
-					{filteredPostsList.length != 0 ? PostsListOk() : NothingNot()}
+					{filteredPostsList.length != 0
+						? PostsListOk()
+						: NothingNot()}
 				</div>
 			</div>
 		</div>
