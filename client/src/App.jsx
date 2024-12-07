@@ -12,7 +12,9 @@ function App() {
 				<Route path="/404" element={<ErrorPage />} />
 				<Route path="/admin" element={<AdminPage />} />
 				<Route path="/admin/a" element={<InAccount />} />
+				<Route path="/admin/*" element={<InAccount />} />
 				<Route path="*" element={<IndexPage />} />
+
 			</Routes>
 		</BrowserRouter>
 	);

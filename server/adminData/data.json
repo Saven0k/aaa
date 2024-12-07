@@ -1,4 +1,6 @@
 {
-    "login": "hello",
-    "password": "buy"
+    "user": {
+        "login": "hello",
+        "password": "buy"
+    }
 }

@@ -1,4 +1,7 @@
 .Main {
+    display: flex;
+align-items: center;
+    flex-direction: column;
     .inputTab {
         height: 24px;
         width: 50vw;
@@ -7,8 +10,8 @@
         justify-content: center;
         align-items: center;
         gap: 15px;
-        padding: 5px;
         margin-bottom: 8vh;
+        margin-top: 10vh;
         input {
             height: 24px;
             outline: none;

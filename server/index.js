@@ -1,5 +1,6 @@
 const express = require("express");
 const { createPost, db, getAllPosts, updatePost, deletePost } = require("./db"); // Importing the createPost function and the db object
+const { default: getData } = require("./json");
 const app = express();
 
 // Port used
@@ -63,6 +64,18 @@ app.delete("/api/delete/:id", async (req, res) => {
 		res.status(500).send("Error deleting post");
 	}
 });
+
+/**
+ * Get data, api
+ */
+app.get("/api/data", async (req, res) => {
+	try {
+		const data = await getData();
+		res.json({ data });
+	} catch (error) {
+		res.status(500).json({message: error.message});
+	}
+})
 
 
 /**

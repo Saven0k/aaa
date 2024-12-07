@@ -7,7 +7,7 @@
  */
 export const updatePost = async (postId, updateName, updateText) => {
     try {
-        const res = await fetch(`/update/${postId}`, {
+        const res = await fetch(`/api/update/${postId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const updatePost = async (postId, updateName, updateText) => {
  */
 export async function getPosts() {
     try {
-        const response = await fetch("/posts");
+        const response = await fetch("/api/posts");
         const data = await response.json();
 
         if (!response.ok) {
@@ -57,7 +57,7 @@ export async function getPosts() {
  * @param {string} newText 
  */
 export async function addPost(newName, newText) {
-    fetch("/add", {
+    fetch("/api/add", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export async function addPost(newName, newText) {
  */
 export async function deletePost(id) {
     try {
-        const response = await fetch(`/delete/${id}`, {
+        const response = await fetch(`/api/delete/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

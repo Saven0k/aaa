@@ -9,6 +9,7 @@ export default defineConfig({
 			"/api/posts": "http://localhost:5000",
 			"/api/update": "http://localhost:5000",
 			"/api/delete": "http://localhost:5000",
+			"/api/data": "http://localhost:5000",
 		},
 	},
 });
