@@ -10,6 +10,11 @@ export default defineConfig({
 			"/api/update": "http://localhost:5000",
 			"/api/delete": "http://localhost:5000",
 			"/api/data": "http://localhost:5000",
+			"/api/users": "http://localhost:5000",
+			"/api/addUser": "http://localhost:5000",
+			"/api/updateUser": "http://localhost:5000",
+			"/api/deleteUser": "http://localhost:5000",
+			"/api/userFind": "http://localhost:5000",
 		},
 	},
 });

@@ -29,15 +29,150 @@ const db = new sqlite3.Database(dbPath, (err) => {
 				}
 			}
 		);
+		db.run(
+			`CREATE TABLE IF NOT EXISTS users (
+            id TEXT AUTO_INCREMENT PRIMARY KEY,
+            email TEXT,
+            password TEXT
+        )`,
+			(err) => {
+				if (err) {
+					console.error("Ошибка при создании таблицы:", err.message);
+				} else {
+					console.log(
+						"Таблица users успешно создана или уже существует."
+					);
+				}
+			}
+		);
 	}
 });
 
 
+
 /**
- * Function to create id
+ * Function to create id for user
  * @returns {string} ID
  */
-function generateUniqueId() {
+function generateUniqueIdForUser() {
+	return "user_" + Date.now();
+}
+
+/**
+ * Function for creating a user
+ * @param {string} name 
+ * @param {string} text 
+ * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
+ */
+async function createUser(email, password) {
+	const userId = generateUniqueIdForUser();
+	const sql = `INSERT INTO users (id, email, password) VALUES (?, ?, ?)`;
+
+	return new Promise((resolve, reject) => {
+		db.run(sql, [userId, email, password], function (err) {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				return reject(new Error("Ошибка регистрации пользователя"));
+			}
+
+			console.log(`Пользователь добавлен: ${userId}, ${email}`);
+			resolve({
+				userId,
+				message: "Пользователь успешно зарегистрирован",
+			});
+		});
+	});
+}
+
+/**
+ * // Function to display data from a table
+ * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
+ */
+async function getAllUsers() {
+	const sql = `SELECT * FROM users`;
+
+	return new Promise((resolve, reject) => {
+		db.all(sql, function (err, rows) {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				return reject(new Error("Ошибка вывода всех пользователей"));
+			}
+			console.log("Пользователи выведены");
+			resolve(rows);
+		});
+	});
+}
+
+/**
+ * Function to update user
+ * @param {string} id 
+ * @param {string} email 
+ * @param {string} password 
+ * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
+ */
+async function updateUser(id, email, password) {
+	const sql = `UPDATE users SET email = ?, password = ? WHERE id = ?`;
+
+	return new Promise((resolve, reject) => {
+		db.run(sql, [email, password, id], function (err) {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				return reject(new Error("Ошибка обновления пользователя"));
+			}
+			console.log("Пользователь обновлен");
+			resolve("OK");
+		});
+	});
+}
+
+/**
+ * Deletes a user from the database.
+ * @param {string} id 
+ * @returns bool: True if the user was successfully deleted, False otherwise.
+ */
+async function deleteUser(id) {
+	const sql = 'DELETE FROM users WHERE id = ?';
+
+	return new Promise((resolve, reject) => {
+		db.run(sql, [id], (err) => {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				reject(new Error("Ошибка удаление пользователя с id: ", id));
+			} else {
+				console.log(`Пользователь с id ${id} удален`);
+				resolve("OK");
+			}
+		});
+	})
+}
+/**
+ * Find a user from the database.
+ * @param {string} email
+ * @param {string} password
+ * @returns bool: True if the user was finded/ false.
+ */
+async function findUser(email, password) {
+	const sql = 'SELECT * FROM users WHERE email = ? AND password = ?';
+
+	return new Promise((resolve, reject) => {
+		db.get(sql, [email, password], (err, rows) => {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				reject(false);
+			} else {
+				console.log(`Пользователь был найден\n`);
+				resolve(rows);
+			}
+		});
+	})
+}
+
+
+/**
+ * Function to create id for post
+ * @returns {string} ID
+ */
+function generateUniqueIdForPost() {
 	return "post_" + Date.now();
 }
 
@@ -49,7 +184,7 @@ function generateUniqueId() {
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
 async function createPost(name, text) {
-	const userId = generateUniqueId();
+	const userId = generateUniqueIdForPost();
 	const sql = `INSERT INTO posts (id, name, text) VALUES (?, ?, ?)`;
 
 	return new Promise((resolve, reject) => {
@@ -135,9 +270,15 @@ async function deletePost(id) {
  */
 module.exports = {
 	createPost,
-	generateUniqueId,
+	generateUniqueIdForPost: generateUniqueIdForPost,
+	generateUniqueIdForUser: generateUniqueIdForUser,
 	getAllPosts,
 	updatePost,
 	deletePost,
+	createUser,
+	getAllUsers,
+	updateUser,
+	deleteUser,
+	findUser,
 	db,
 };

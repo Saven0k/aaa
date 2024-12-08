@@ -2,7 +2,7 @@ import IndexPage from "./pages/indexPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ErrorPage from "./pages/404";
 import AdminPage from "./pages/AdminPage";
-import InAccount from "./components/InAccount/InAccount";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
 	return (
@@ -10,9 +10,8 @@ function App() {
 			<Routes>
 				<Route path="/index" element={<IndexPage />} />
 				<Route path="/404" element={<ErrorPage />} />
-				<Route path="/admin" element={<AdminPage />} />
-				<Route path="/admin/a" element={<InAccount />} />
-				<Route path="/admin/*" element={<InAccount />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/admin/a" element={<AdminPage />} />
 				<Route path="*" element={<IndexPage />} />
 
 			</Routes>

@@ -1,14 +1,10 @@
-import { CustomForm } from '../form/Form';
+import BasicLoginForm from '../BasicLoginForm/BasicLoginForm';
+import WorkWithUser from '../WorkWithUsers/WorkWithUser';
 import './style.css'
-import { useEffect, useState } from "react";
-
 const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
     return (
         <div className="all">
-           <CustomForm email={email} password={password} setEmail={setEmail} setPassword={setPassword}/>
+            <BasicLoginForm/>
         </div >
     )
 }

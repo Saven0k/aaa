@@ -1,5 +1,5 @@
 const express = require("express");
-const { createPost, db, getAllPosts, updatePost, deletePost } = require("./db"); // Importing the createPost function and the db object
+const { createPost, db, getAllPosts, updatePost, deletePost, getAllUsers, createUser, updateUser, deleteUser, findUser } = require("./db"); // Importing the createPost function and the db object
 const { default: getData } = require("./json");
 const app = express();
 
@@ -10,7 +10,6 @@ const PORT = 5000;
  * Middleware for JSON parsing
  */
 app.use(express.json());
-
 
 /**
  * Get posts, api
@@ -23,7 +22,6 @@ app.get("/api/posts", async (req, res) => {
 		res.status(500).json({ message: error.message });
 	}
 });
-
 
 /**
  * Add post, api
@@ -66,6 +64,71 @@ app.delete("/api/delete/:id", async (req, res) => {
 });
 
 /**
+ * Get users, api
+ */
+app.get("/api/users", async (req, res) => {
+	try {
+		const users = await getAllUsers();
+		res.json({ users }); // Отправляем список пользователей в формате JSON
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+/**
+ * Add user, api
+ */
+app.post("/api/addUser", async (req, res) => {
+	const { email, password } = req.body;
+	try {
+		const result = await createUser(email, password);
+		res.json(result);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+/**
+ * Update post, api
+ */
+app.put("/api/updateUser/:id", async (req, res) => {
+	const { id, email, password } = req.body;
+	try {
+		await updateUser(id, email, password);
+		res.json({ message: "Пользователь обновлен" });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+/**
+ * Remove user,  api
+ */
+app.delete("/api/deleteUser/:id", async (req, res) => {
+	try {
+		const { id: userId } = req.params;
+		await deleteUser(userId);
+		res.json({ message: "User deleted successfully", status: "ok" });
+	} catch (err) {
+		console.error("Error deleting user: ", err);
+		res.status(500).send("Error deleting user");
+	}
+});
+
+/**
+ * Find user by email, password, api
+ */
+app.post("/api/userFind", async (req, res) => {
+	const { email, password } = req.body;
+	try {
+		const response = await findUser(email, password);
+		res.json({ response });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+/**
  * Get data, api
  */
 app.get("/api/data", async (req, res) => {
@@ -73,10 +136,9 @@ app.get("/api/data", async (req, res) => {
 		const data = await getData();
 		res.json({ data });
 	} catch (error) {
-		res.status(500).json({message: error.message});
+		res.status(500).json({ message: error.message });
 	}
-})
-
+});
 
 /**
  * Port listener

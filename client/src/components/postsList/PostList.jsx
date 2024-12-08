@@ -1,4 +1,4 @@
-import { filter } from "../../services/filterFunc";
+import { filterPost } from "../../services/filterFunc";
 import { getPosts } from "../../services/workWithBd";
 import { NothingNot, PostsListOkView } from "../PostListOk/PostListOk";
 import "./style.css";
@@ -31,7 +31,7 @@ const PostList = () => {
 	// Function to record the value, define and modify the filtered list.
 	function handleSearch(value) {
 		setSearchItem(value);
-		setFilteredPostsLists(filter(value, postsList));
+		setFilteredPostsLists(filterPost(value, postsList));
 	}
 
 	return (

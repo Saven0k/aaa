@@ -1,4 +1,5 @@
-import Login from "../components/loginAdmin/login";
+import BigTitle from "../components/BigTitle/BigTitle";
+import Component from "../components/WorkWithUsers/WorkWithUser";
 
 /**
  * Login page
@@ -6,7 +7,10 @@ import Login from "../components/loginAdmin/login";
  */
 const AdminPage = () => {
     return (
-        <Login />
+        <div className="AdminPage">
+            <BigTitle>Добро пожаловать в панель админа</BigTitle>
+            <Component />
+        </div>
     )
 }
 
