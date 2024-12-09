@@ -53,14 +53,6 @@ const PostList = () => {
 						transform="rotate(-44.992 14.25 14.25)"
 					></path>
 				</svg>
-				{/* <CustomInput 
-					value={searchItem}
-					type="text"
-					size="Normal"
-					onChange={(e) => handleSearch(e.target.value)}
-					label="Поиск"
-					className="input"
-					name="input" /> */}
 				<input
 					value={searchItem}
 					autoFocus

@@ -3,6 +3,8 @@ import { basicSchema } from '../../schemas';
 import './style.css'
 import { useFormik } from 'formik'
 import { findUser } from '../../services/workWithBd';
+import TextField from '@mui/material/TextField';
+import MediumTitle from '../MediumTitle/MediumTitle'
 
 const BasicLoginForm = () => {
     const [attempts, setAttempts] = useState(2);
@@ -34,37 +36,60 @@ const BasicLoginForm = () => {
 
     return (
         <form className='form' onSubmit={handleSubmit} autoComplete='off'>
-            <label htmlFor="email">Email</label>
-            <input
-                className={errors.email && touched.email ? "input-error" : "input-good"}
+            <MediumTitle>Вход в учительскую</MediumTitle>
+            {/* <label htmlFor="email">Email</label> */}
+            {/* <input
+                className={errors.email && touched.email ? "input-error input" : "input-good input"}
                 value={values.email}
                 onChange={handleChange}
-                p
                 onBlur={handleBlur}
                 id='email'
                 type='email'
                 placeholder='Enter your email'
+            /> */}
+            <TextField
+                // id="standard-basic"
+                label="Email"
+                variant="standard"
+                // className={errors.email && touched.email ? "input-error input" : "input-good input"}
+                className={"input"}
+                value={values.email}
+                onChange={handleChange}
+                // onBlur={handleBlur}
+                error={errors.email ? true: false}
+                type='email'
             />
             {errors.email && touched.email && <p className='error'>{errors.email}</p>}
-            <label htmlFor="password">Password</label>
-            <input
+            <TextField
+                id="standard-basic"
+                label="Пароль"
+                variant="standard"
+                value={values.password}
+                onChange={handleChange}
+                error={errors.password ? true: false}
+                type='current-password'
+                // className={errors.password && touched.password ? "input-error input" : "input-good input"}
+                className={"input"}
+            />
+            {/* <input
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 id='password'
                 type='password'
                 placeholder='Enter your password'
-                className={errors.password && touched.password ? "input-error" : "input-good"}
-            />
+                className={errors.password && touched.password ? "input-error input" : "input-good input"}
+            /> */}
             {errors.password && touched.password && <p className='error'>{errors.password}</p>}
             <button
                 type='submit'
-                disabled={isSubmitting}
+                disabled={isSubmitting ? true: false}
+                className='button'
                 onClick={(e) => {
                     const res = findUser(values.email, values.password)
                 }}
             >
-                ВОйти
+                Войти
             </button>
 
         </form>

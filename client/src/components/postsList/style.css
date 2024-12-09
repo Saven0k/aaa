@@ -1,32 +1,38 @@
 .Main {
     display: flex;
-align-items: center;
+    align-items: start;
+    padding-left: 25px;
+    padding-right: 25px;
     flex-direction: column;
+
     .inputTab {
         height: 24px;
-        width: 50vw;
+        width: 100%;
         min-width: 350px;
         display: flex;
-        justify-content: center;
+        justify-content: start;
+        padding-left: 45px;
         align-items: center;
         gap: 15px;
         margin-bottom: 8vh;
         margin-top: 10vh;
+
         input {
             height: 24px;
             outline: none;
-            width: 50%;
-            border:none;
+            width: 25%;
+            border: none;
             font-size: 18px;
             border-bottom: 1px solid black;
         }
     }
 }
-.posts {
 
-    gap: 50px;
+.posts {
+    gap: 5px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     flex-direction: column;
+    width: 100%;
 }

@@ -1,10 +1,13 @@
-import BasicLoginForm from '../BasicLoginForm/BasicLoginForm';
-import WorkWithUser from '../WorkWithUsers/WorkWithUser';
+// import BasicLoginForm from '../BasicLoginForm/BasicLoginForm';
+// import LoginBase from '../BasicLoginForm/LoginBase';
 import './style.css'
+import BasicForm from '../BasicForm/basicForm'
 const Login = () => {
     return (
         <div className="all">
-            <BasicLoginForm/>
+            {/* <BasicLoginForm/> */}
+            {/* <LoginBase/> */}
+            <BasicForm/>
         </div >
     )
 }

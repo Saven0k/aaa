@@ -23,3 +23,60 @@
         overflow-wrap: break-word;
     }
 }
+
+.datails {
+    background-color: rgb(37, 60, 163);
+    width: 100%;
+    padding: 25px 5px 25px 15px;
+}
+
+details>summary {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.details-info p{
+    background-color: #fff;
+    border-radius: 15px;
+    text-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    height: auto;
+    padding: 15px 25px 15px 35px;
+    font-size: 16px;
+}
+
+
+details[open] {
+    font-style: italic;
+    animation: slide .8s linear alternate ;
+}
+
+summary::-webkit-details-marker {
+    display: none
+}
+
+summary::before {
+    content: '👉';
+}
+
+details[open] summary:before {
+    margin-top: 5px;
+    content: " 👇";
+}
+@keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translate(0, -10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}

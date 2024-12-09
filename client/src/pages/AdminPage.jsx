@@ -1,5 +1,6 @@
 import BigTitle from "../components/BigTitle/BigTitle";
-import Component from "../components/WorkWithUsers/WorkWithUser";
+import Component from "../components/Component/Component";
+
 
 /**
  * Login page

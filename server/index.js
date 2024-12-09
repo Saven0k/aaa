@@ -1,6 +1,5 @@
 const express = require("express");
 const { createPost, db, getAllPosts, updatePost, deletePost, getAllUsers, createUser, updateUser, deleteUser, findUser } = require("./db"); // Importing the createPost function and the db object
-const { default: getData } = require("./json");
 const app = express();
 
 // Port used
