@@ -1,5 +1,15 @@
 const express = require("express");
-const { createPost, db, getAllPosts, updatePost, deletePost, getAllUsers, createUser, updateUser, deleteUser, findUser } = require("./db"); // Importing the createPost function and the db object
+const { createPost, 
+	db, 
+	getAllPosts, 
+	updatePost, 
+	deletePost, 
+	getAllUsers, 
+	createUser, 
+	updateUser, 
+	deleteUser, 
+	findUser, 
+	getPostsFor } = require("./db"); // Importing the createPost function and the db object
 const app = express();
 
 // Port used
@@ -23,12 +33,27 @@ app.get("/api/posts", async (req, res) => {
 });
 
 /**
+ * Get posts FOR `item`, api
+ */
+app.post("/api/postsFor", async (req, res) => {
+	const { forField } = req.body;
+	try {
+		const posts = await getPostsFor(forField);
+		res.json({ posts }); // Отправляем список постов в формате JSON
+	} catch (error) {
+		console.log("a");
+		
+		res.status(500).json({ message: error.message });
+	}
+});
+
+/**
  * Add post, api
  */
 app.post("/api/add", async (req, res) => {
-	const { name, text } = req.body;
+	const { name, text, forField } = req.body;
 	try {
-		const result = await createPost(name, text);
+		const result = await createPost(name, text, forField);
 		res.json(result);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
@@ -39,9 +64,9 @@ app.post("/api/add", async (req, res) => {
  * Update post, api
  */
 app.put("/api/update/:id", async (req, res) => {
-	const { id, name, text } = req.body;
+	const { id, name, text, forField } = req.body;
 	try {
-		await updatePost(id, name, text);
+		await updatePost(id, name, text, forField);
 		res.json({ message: "Пост обновлен" });
 	} catch (error) {
 		res.status(500).json({ message: error.message });

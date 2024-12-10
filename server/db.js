@@ -4,7 +4,6 @@ const path = require("path");
 // Database path
 const dbPath = path.join(__dirname, "db", "posts.db");
 
-
 /**
  * Initializing the Database
  */
@@ -17,7 +16,8 @@ const db = new sqlite3.Database(dbPath, (err) => {
 			`CREATE TABLE IF NOT EXISTS posts (
             id TEXT PRIMARY KEY,
             name TEXT,
-            text TEXT
+            text TEXT,
+			for TEXT
         )`,
 			(err) => {
 				if (err) {
@@ -48,8 +48,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
 	}
 });
 
-
-
 /**
  * Function to create id for user
  * @returns {string} ID
@@ -60,8 +58,8 @@ function generateUniqueIdForUser() {
 
 /**
  * Function for creating a user
- * @param {string} name 
- * @param {string} text 
+ * @param {string} name
+ * @param {string} text
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
 async function createUser(email, password) {
@@ -105,9 +103,9 @@ async function getAllUsers() {
 
 /**
  * Function to update user
- * @param {string} id 
- * @param {string} email 
- * @param {string} password 
+ * @param {string} id
+ * @param {string} email
+ * @param {string} password
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
 async function updateUser(id, email, password) {
@@ -127,11 +125,11 @@ async function updateUser(id, email, password) {
 
 /**
  * Deletes a user from the database.
- * @param {string} id 
+ * @param {string} id
  * @returns bool: True if the user was successfully deleted, False otherwise.
  */
 async function deleteUser(id) {
-	const sql = 'DELETE FROM users WHERE id = ?';
+	const sql = "DELETE FROM users WHERE id = ?";
 
 	return new Promise((resolve, reject) => {
 		db.run(sql, [id], (err) => {
@@ -143,7 +141,7 @@ async function deleteUser(id) {
 				resolve("OK");
 			}
 		});
-	})
+	});
 }
 /**
  * Find a user from the database.
@@ -152,7 +150,7 @@ async function deleteUser(id) {
  * @returns bool: True if the user was finded/ false.
  */
 async function findUser(email, password) {
-	const sql = 'SELECT * FROM users WHERE email = ? AND password = ?';
+	const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
 
 	return new Promise((resolve, reject) => {
 		db.get(sql, [email, password], (err, rows) => {
@@ -164,9 +162,8 @@ async function findUser(email, password) {
 				resolve(rows);
 			}
 		});
-	})
+	});
 }
-
 
 /**
  * Function to create id for post
@@ -176,25 +173,26 @@ function generateUniqueIdForPost() {
 	return "post_" + Date.now();
 }
 
-
 /**
  * Function for creating a post
- * @param {string} name 
- * @param {string} text 
+ * @param {string} name
+ * @param {string} text
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
-async function createPost(name, text) {
+async function createPost(name, text, forField) {
 	const userId = generateUniqueIdForPost();
-	const sql = `INSERT INTO posts (id, name, text) VALUES (?, ?, ?)`;
+	const sql = `INSERT INTO posts (id, name, text, for) VALUES (?, ?, ?, ?)`;
 
 	return new Promise((resolve, reject) => {
-		db.run(sql, [userId, name, text], function (err) {
+		db.run(sql, [userId, name, text, forField], function (err) {
 			if (err) {
 				console.error("Ошибка базы данных:", err.message);
 				return reject(new Error("Ошибка регистрации поста"));
 			}
 
-			console.log(`Запись добавлена: ${userId}, ${name}, ${text}`); // Добавлено для отладки
+			console.log(
+				`Запись добавлена: ${userId}, ${name}, ${text}, ${forField}`
+			); // Добавлено для отладки
 			resolve({
 				userId,
 				message: "Запись успешно зарегистрирована",
@@ -223,17 +221,36 @@ async function getAllPosts() {
 }
 
 /**
- * Function to update
- * @param {string} id 
- * @param {string} name 
- * @param {string} text 
- * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
+ * // Function to display data from a table
+ * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
  */
-async function updatePost(id, name, text) {
-	const sql = `UPDATE posts SET name = ?, text = ? WHERE id = ?`;
+async function getPostsFor(forField) {
+	const sql = `SELECT * FROM posts WHERE for = ?`;
 
 	return new Promise((resolve, reject) => {
-		db.run(sql, [name, text, id], function (err) {
+		db.all(sql, [forField], function (err, rows) {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				return reject(new Error("Ошибка вывода всех постов"));
+			}
+			console.log("Записи выведены");
+			resolve(rows);
+		});
+	});
+}
+
+/**
+ * Function to update
+ * @param {string} id
+ * @param {string} name
+ * @param {string} text
+ * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
+ */
+async function updatePost(id, name, text, forField) {
+	const sql = `UPDATE posts SET name = ?, text = ?, for = ? WHERE id = ?`;
+
+	return new Promise((resolve, reject) => {
+		db.run(sql, [name, text, forField, id], function (err) {
 			if (err) {
 				console.error("Ошибка базы данных:", err.message);
 				return reject(new Error("Ошибка обновления поста"));
@@ -246,11 +263,11 @@ async function updatePost(id, name, text) {
 
 /**
  * Deletes a post from the database.
- * @param {string} id 
+ * @param {string} id
  * @returns bool: True if the post was successfully deleted, False otherwise.
  */
 async function deletePost(id) {
-	const sql = 'DELETE FROM posts WHERE id = ?';
+	const sql = "DELETE FROM posts WHERE id = ?";
 
 	return new Promise((resolve, reject) => {
 		db.run(sql, [id], (err) => {
@@ -262,7 +279,7 @@ async function deletePost(id) {
 				resolve("OK");
 			}
 		});
-	})
+	});
 }
 
 /**
@@ -273,6 +290,7 @@ module.exports = {
 	generateUniqueIdForPost: generateUniqueIdForPost,
 	generateUniqueIdForUser: generateUniqueIdForUser,
 	getAllPosts,
+	getPostsFor,
 	updatePost,
 	deletePost,
 	createUser,

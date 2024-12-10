@@ -5,7 +5,7 @@ import './style.css'
 import MediumTitle from '../MediumTitle/MediumTitle';
 
 const BasicForm = () => {
-    const [attempts, setAttempts] = useState(2);
+    const [attempts, setAttempts] = useState(5);
     const [viewPassword, setViewPassword] = useState(false)
     const {
         register,

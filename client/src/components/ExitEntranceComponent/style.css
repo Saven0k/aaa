@@ -28,3 +28,14 @@
     font-size: 14px;
     font-weight: 500;
 }
+
+.exit:hover::after {
+    transition: 0.5s;
+    position: absolute;
+    top: 55%;
+    left: 110%;
+    content: 'Выход из  аккаунта';
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+}

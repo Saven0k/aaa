@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./style.css";
 import esc from "./images/delete.svg";
 import {
-    addUser,
+	addUser,
 	deleteUser,
 	getUsers,
 	updateUser,
@@ -108,7 +108,11 @@ const ControlUsers = () => {
 					/>
 					<input
 						className="input inputText"
-						value={user.id === idActiveuser ? newPassword : user.password}
+						value={
+							user.id === idActiveuser
+								? newPassword
+								: user.password
+						}
 						onChange={(e) => setNewPassword(e.target.value)}
 						maxLength={25}
 						id={user.id}
@@ -181,7 +185,9 @@ const ControlUsers = () => {
 							<input
 								className="input"
 								value={emailNewUser}
-								onChange={(e) => setEmailNewUser(e.target.value)}
+								onChange={(e) =>
+									setEmailNewUser(e.target.value)
+								}
 								maxLength={25}
 								id="email"
 								name="email"
@@ -195,7 +201,9 @@ const ControlUsers = () => {
 							<input
 								className="input inputLike"
 								value={passwordNewUser}
-								onChange={(e) => setPasswordNewUser(e.target.value)}
+								onChange={(e) =>
+									setPasswordNewUser(e.target.value)
+								}
 								maxLength={25}
 								id="password"
 								name="password"
@@ -241,11 +249,11 @@ const ControlUsers = () => {
 				</div>
 
 				<div className="users">
-					{filteredUsersList.length != 0 ? 
-						<UsersListOk /> :
+					{filteredUsersList.length != 0 ? (
+						<UsersListOk />
+					) : (
 						<NothingNot />
-					}
-
+					)}
 				</div>
 			</div>
 		</div>

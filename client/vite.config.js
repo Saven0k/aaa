@@ -15,6 +15,7 @@ export default defineConfig({
 			"/api/updateUser": "http://localhost:5000",
 			"/api/deleteUser": "http://localhost:5000",
 			"/api/userFind": "http://localhost:5000",
+			"/api/postsFor": "http://localhost:5000",
 		},
 	},
 });

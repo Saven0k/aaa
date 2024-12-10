@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import Header from "../components/header/Header";
+import ControlTeacherPosts from "../components/ControlTeacherPosts/ControlTeacherPosts";
 
 const TeacherPage = () => {
     return (
         <div className="teacherPage">
+            <ControlTeacherPosts />
         </div>
     )
 }

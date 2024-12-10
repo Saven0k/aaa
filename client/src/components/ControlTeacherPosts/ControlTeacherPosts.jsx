@@ -4,15 +4,15 @@ import esc from "./images/delete.svg";
 import {
 	addPost,
 	deletePost,
-	getPostFor,
-	getPosts,
+	// getPosts,
 	updatePost,
+	getPostFor,
 } from "../../services/workWithBd";
 import { filterPost } from "../../services/filterFunc";
 import { NothingNot } from "../PostListOk/PostListOk";
 import { funcToTallInput } from "../../services/inputSizeFunc";
 
-const ControlStudentPosts = () => {
+const ControlTeacherPosts = () => {
 	// State for posts list
 	const [postsList, setPostsLists] = useState([]);
 
@@ -37,20 +37,25 @@ const ControlStudentPosts = () => {
 
 	// Function to query data from a database.
 	async function prepareData() {
-		const posts = await getPostFor("student");
+		const posts = await getPostFor("teacher");
 		setPostsLists(posts);
 		setFilteredPostsLists(posts);
 	}
 
 	// Function for save update post.
-	async function handleSavePostBtnPress(postID, newName, newText, newForField) {
+	async function handleSavePostBtnPress(
+		postID,
+		newName,
+		newText,
+		newForField
+	) {
 		const res = await updatePost(postID, newName, newText, newForField);
 		if (!res) return false;
 		setIdActivePost(null);
 		setPostsLists(
 			postsList.map((post) => {
 				return post.id === postID
-					? { ...post, name: newName, text: newText, forField: newForField }
+					? { ...post, name: newName, text: newText, newForField }
 					: post;
 			})
 		);
@@ -58,7 +63,7 @@ const ControlStudentPosts = () => {
 		setFilteredPostsLists(
 			filteredPostsList.map((post) => {
 				return post.id === postID
-					? { ...post, name: newName, text: newText, forField: newForField }
+					? { ...post, name: newName, text: newText, newForField }
 					: post;
 			})
 		);
@@ -82,7 +87,7 @@ const ControlStudentPosts = () => {
 		addPost(nameNewPost, textNewPost, forFieldNewPost);
 		setNameNewPost("");
 		setTextNewPost("");
-		setForFieldNewPost("")
+		setForFieldNewPost("");
 		prepareData();
 	};
 
@@ -131,9 +136,36 @@ const ControlStudentPosts = () => {
 					<select
 						name="select"
 						className="select"
+						disabled={post.id === idActivePost ? false : true}
+						style={{
+							border:
+								post.id === idActivePost
+									? "1px solid #000"
+									: "none",
+							outline:
+								post.id === idActivePost
+									? "1px solid #000"
+									: "none",
+						}}
 					>
-						<option value={post.id === idActivePost ? newForField : post.forField}>Для студентов</option>
-						<option value={post.id === idActivePost ? newForField : post.forField}>Для преподавателей</option>
+						<option
+							value={
+								post.id === idActivePost
+									? newForField
+									: post.forField
+							}
+						>
+							Для студентов
+						</option>
+						<option
+							value={
+								post.id === idActivePost
+									? newForField
+									: post.forField
+							}
+						>
+							Для преподавателей
+						</option>
 					</select>
 					<div className="buttons">
 						<button
@@ -142,7 +174,6 @@ const ControlStudentPosts = () => {
 								setIdActivePost(post.id);
 								setNewName(post.name);
 								setNewText(post.text);
-								setNewForField(post.forField)
 							}}
 						>
 							Редактировать
@@ -153,8 +184,7 @@ const ControlStudentPosts = () => {
 								handleSavePostBtnPress(
 									post.id,
 									newName,
-									newText,
-									newForField,
+									newText
 								);
 							}}
 							style={{
@@ -216,6 +246,22 @@ const ControlStudentPosts = () => {
 								onKeyUp={(e) => funcToTallInput("inputLike")}
 							/>
 						</div>
+						<div className="sub">
+							<span>Для кого</span>
+							<select
+								name="select"
+								className="select"
+								onChange={(e) =>
+									setForFieldNewPost(e.target.value)
+								}
+								defaultValue={"Выберете:"}
+							>
+								<option value="student">Для студентов</option>
+								<option value="teacher">
+									Для преподавателей
+								</option>
+							</select>
+						</div>
 					</div>
 
 					<button className="button" type="submit">
@@ -262,4 +308,4 @@ const ControlStudentPosts = () => {
 	);
 };
 
-export default ControlStudentPosts;
+export default ControlTeacherPosts;

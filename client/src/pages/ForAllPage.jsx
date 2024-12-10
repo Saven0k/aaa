@@ -9,7 +9,7 @@ import StudentBranch from "../components/StudentBranch/StudentBranch";
 const ForAllPage = () => {
 	return (
 		<>
-			<Header />
+			<Header exit={false} />
 			<StudentBranch/>
 			<Footer />
 		</>
