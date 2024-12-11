@@ -3,18 +3,14 @@ import ControlStudentPosts from "../ControlStudentPosts/ControlStudentPosts";
 import ControlTeacherPosts from "../ControlTeacherPosts/ControlTeacherPosts";
 import ControlUsers from "../ControlUsers/ControlUsers";
 import "./style.css";
+import Statistics from "../Statistics/Statistics";
 
 const Component = () => {
-	// const [x, setX] = useState(false);
 	return (
 		<div className="workBlock">
 			<details
 				name="work"
 				className="details"
-				// open={x}
-				// onClick={() => {
-				// 	setX(!x);
-				// }}
 			>
 				<summary className="summary">Работа с пользователями</summary>
 				<ControlUsers />
@@ -31,6 +27,7 @@ const Component = () => {
 			</details>
 			<details name="work" className="details">
 				<summary className="summary">Статистика</summary>
+				<Statistics />
 			</details>
 		</div>
 	);

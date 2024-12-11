@@ -173,7 +173,6 @@ const ControlUsers = () => {
 		<div className="account">
 			<div className="newuser">
 				<form
-					id="form"
 					action="submit"
 					className="form"
 					onSubmit={(e) => RecordingNewUser(e)}

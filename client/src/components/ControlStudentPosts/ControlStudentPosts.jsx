@@ -15,6 +15,7 @@ import SaveButton from "../CustomButtons/SaveButton/SaveButton";
 import ChangeButton from "../CustomButtons/ChangeButton/ChangeButton";
 import prepareData from "../../services/prepareData";
 import handleSavePostBtnPress from "../../services/handleSavePostBtnPress";
+import { useForm } from "react-hook-form";
 
 const ControlStudentPosts = () => {
 	// State for posts list
@@ -70,7 +71,6 @@ const ControlStudentPosts = () => {
 						value={post.id === idActivePost ? newName : post.name}
 						onChange={(e) => setNewName(e.target.value)}
 						maxLength={100}
-						id={post.id + 1}
 						name="NewName"
 						type="text"
 						disabled={post.id === idActivePost ? false : true}
@@ -86,7 +86,6 @@ const ControlStudentPosts = () => {
 						value={post.id === idActivePost ? newText : post.text}
 						onChange={(e) => setNewText(e.target.value)}
 						maxLength={25000}
-						id={post.id}
 						required
 						onKeyUp={(e) => funcToTallInput("inputText")}
 						name="NewText"
@@ -142,7 +141,6 @@ const ControlStudentPosts = () => {
 		<div className="account">
 			<div className="newPost">
 				<form
-					id="form"
 					action="submit"
 					className="form"
 					onSubmit={(e) => RecordingNewPost(e)}
@@ -157,7 +155,6 @@ const ControlStudentPosts = () => {
 								value={nameNewPost}
 								onChange={(e) => setNameNewPost(e.target.value)}
 								maxLength={35}
-								id="name"
 								name="name"
 								type="text"
 								placeholder="Введите название"
@@ -170,7 +167,6 @@ const ControlStudentPosts = () => {
 								value={textNewPost}
 								onChange={(e) => setTextNewPost(e.target.value)}
 								maxLength={1500}
-								id="text"
 								name="text"
 								type="text"
 								placeholder="Введите содержание"

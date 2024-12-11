@@ -1,7 +1,10 @@
 h1 {
-    font-size: 24px;
+    font-size: 28px;
     font-weight:700;
     font-style: normal;
-    color: #000;
-    margin: 24px 0 18px 22px;
+    color: #076b17;
+    margin: 34px 0 18px 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

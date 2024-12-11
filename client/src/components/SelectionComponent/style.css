@@ -1,0 +1,29 @@
+.selection-page {
+    display: flex;
+    width: 100vw;
+    height: auto;
+    margin-top: 45vh;
+    justify-content: center;
+    align-items: center;
+    gap: 10vh;
+    flex-wrap: wrap;
+    
+}
+
+.buttonGo {
+    font-size: 26px;
+    font-weight: 600;
+    font-style: normal;
+    color: #fff;
+    background-color: #e264d1;
+    padding: 24px 35px;
+    border-radius: 25px;
+    border: none;
+    transition: 0.8s;
+}
+
+.buttonGo:hover {
+    background-color: #801972;
+    transform: scale(1.1) translateY(15px) ;
+    color: #222;
+}

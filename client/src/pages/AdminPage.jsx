@@ -1,7 +1,6 @@
 import BigTitle from "../components/BigTitle/BigTitle";
 import Component from "../components/Component/Component";
-import Header from "../components/header/Header";
-
+import ButtonLink from "../components/CustomButtons/ButtonLink/ButtonLink";
 
 /**
  * Login page
@@ -10,8 +9,19 @@ import Header from "../components/header/Header";
 const AdminPage = () => {
     return (
         <div className="AdminPage">
-            <Header exit={true} />
-            <BigTitle>Добро пожаловать в панель админа</BigTitle>
+            <div 
+                className="headerPage"
+                style={{
+                    display: "flex",
+                    gap: "15px",
+                    marginTop: "15px",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+                <BigTitle>Добро пожаловать в панель админа</BigTitle>
+                <ButtonLink link="/index">Перейти на главную страницу</ButtonLink>
+                <ButtonLink link="/teacher">Перейти на страницу для преподавателей</ButtonLink>
+            </div>
             <Component />
         </div>
     )

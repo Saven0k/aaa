@@ -2,10 +2,13 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react';
 import './style.css'
 import MediumTitle from '../MediumTitle/MediumTitle';
+import { findUser } from '../../services/workWithBd';
 
 const BasicForm = () => {
     const [attempts, setAttempts] = useState(5);
     const [viewPassword, setViewPassword] = useState(false)
+        
+    // UseForm, use tags
     const {
         register,
         formState: {
@@ -18,10 +21,11 @@ const BasicForm = () => {
         mode: `onChange`
     });
 
-
-
-
-    const onSubmit = async (data = getValues("email")) => {
+	/**
+	 * Function to submit form
+	 * @param {object} data 
+	 */
+	const onSubmit = async (data = getValues("email")) => {
         const email = data.email;
         const password = data.password;
         if (email == "admin", password == "admin") {
@@ -43,6 +47,7 @@ const BasicForm = () => {
             }
         }
     }
+
     return (
         <div className='basicForm'>
             <MediumTitle color="white">Вход в учительскую</MediumTitle>

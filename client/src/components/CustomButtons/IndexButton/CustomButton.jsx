@@ -8,6 +8,7 @@ const CustomButton = ({ children, size, color, on_click, type }) => {
             color={color}
             variant="contained"
             type={type}
+            onClick={on_click}
         >{children}</Button>
     )
 }

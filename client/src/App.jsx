@@ -4,6 +4,7 @@ import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 import TeacherPage from "./pages/TeacherPage";
 import ForAllPage from "./pages/ForAllPage";
+import SelectionPage from "./pages/SelectionPage";
 
 function App() {
 	return (
@@ -13,7 +14,8 @@ function App() {
 				<Route path="/teacher" element={<TeacherPage />} />
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/admin/a" element={<AdminPage />}/>
-				<Route path="*" element={<ForAllPage />} />
+				<Route path="*" element={<SelectionPage />} />
+				<Route path="/selection" element={<SelectionPage />} />
 				<Route path="/404" element={<ErrorPage />} />
 			</Routes>
 		</BrowserRouter>

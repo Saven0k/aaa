@@ -139,8 +139,7 @@ const ControlTeacherPosts = () => {
 	return (
 		<div className="account">
 			<div className="newPost">
-				<form
-					id="form"
+				<form 
 					action="submit"
 					className="form"
 					onSubmit={(e) => RecordingNewPost(e)}
@@ -155,7 +154,6 @@ const ControlTeacherPosts = () => {
 								value={nameNewPost}
 								onChange={(e) => setNameNewPost(e.target.value)}
 								maxLength={35}
-								id="name"
 								name="name"
 								type="text"
 								placeholder="Введите название"
@@ -168,7 +166,6 @@ const ControlTeacherPosts = () => {
 								value={textNewPost}
 								onChange={(e) => setTextNewPost(e.target.value)}
 								maxLength={1500}
-								id="text"
 								name="text"
 								type="text"
 								placeholder="Введите содержание"
