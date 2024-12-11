@@ -1,0 +1,14 @@
+.save {
+    margin-top: 15px;
+    background-color: #fff;
+
+    border-radius: 15px;
+    padding: 3px 5px;
+    color: #07d333;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.save:hover {
+    transform: scale(1.1);
+}

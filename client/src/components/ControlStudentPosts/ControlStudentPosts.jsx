@@ -5,12 +5,16 @@ import {
 	addPost,
 	deletePost,
 	getPostFor,
-	getPosts,
 	updatePost,
 } from "../../services/workWithBd";
 import { filterPost } from "../../services/filterFunc";
 import { NothingNot } from "../PostListOk/PostListOk";
 import { funcToTallInput } from "../../services/inputSizeFunc";
+import AddButton from "../CustomButtons/AddButton/AddButton";
+import SaveButton from "../CustomButtons/SaveButton/SaveButton";
+import ChangeButton from "../CustomButtons/ChangeButton/ChangeButton";
+import prepareData from "../../services/prepareData";
+import handleSavePostBtnPress from "../../services/handleSavePostBtnPress";
 
 const ControlStudentPosts = () => {
 	// State for posts list
@@ -19,7 +23,6 @@ const ControlStudentPosts = () => {
 	// States for new post {name, text}
 	const [nameNewPost, setNameNewPost] = useState("");
 	const [textNewPost, setTextNewPost] = useState("");
-	const [forFieldNewPost, setForFieldNewPost] = useState("");
 
 	// State for filtered posts list.
 	const [filteredPostsList, setFilteredPostsLists] = useState([]);
@@ -33,41 +36,10 @@ const ControlStudentPosts = () => {
 	// State for editing post {name,text}
 	const [newName, setNewName] = useState("");
 	const [newText, setNewText] = useState("");
-	const [newForField, setNewForField] = useState("");
-
-	// Function to query data from a database.
-	async function prepareData() {
-		const posts = await getPostFor("student");
-		setPostsLists(posts);
-		setFilteredPostsLists(posts);
-	}
-
-	// Function for save update post.
-	async function handleSavePostBtnPress(postID, newName, newText, newForField) {
-		const res = await updatePost(postID, newName, newText, newForField);
-		if (!res) return false;
-		setIdActivePost(null);
-		setPostsLists(
-			postsList.map((post) => {
-				return post.id === postID
-					? { ...post, name: newName, text: newText, forField: newForField }
-					: post;
-			})
-		);
-
-		setFilteredPostsLists(
-			filteredPostsList.map((post) => {
-				return post.id === postID
-					? { ...post, name: newName, text: newText, forField: newForField }
-					: post;
-			})
-		);
-		prepareData();
-	}
 
 	// After the page loads, return prepareData()
 	useEffect(() => {
-		prepareData();
+		prepareData("student", setPostsLists, setFilteredPostsLists);
 	}, []);
 
 	// Function to record the value, define and modify the filtered list.
@@ -79,11 +51,10 @@ const ControlStudentPosts = () => {
 	// Function for recording a new post
 	const RecordingNewPost = (e) => {
 		e.preventDefault();
-		addPost(nameNewPost, textNewPost, forFieldNewPost);
+		addPost(nameNewPost, textNewPost, "student");
 		setNameNewPost("");
 		setTextNewPost("");
-		setForFieldNewPost("")
-		prepareData();
+		prepareData("student", setPostsLists, setFilteredPostsLists);
 	};
 
 	// List with filtered posts, if all ok.
@@ -128,41 +99,31 @@ const ControlStudentPosts = () => {
 						type="text"
 						disabled={post.id === idActivePost ? false : true}
 					/>
-					<select
-						name="select"
-						className="select"
-					>
-						<option value={post.id === idActivePost ? newForField : post.forField}>Для студентов</option>
-						<option value={post.id === idActivePost ? newForField : post.forField}>Для преподавателей</option>
-					</select>
 					<div className="buttons">
-						<button
-							className="change"
+						<ChangeButton
 							onClick={() => {
 								setIdActivePost(post.id);
 								setNewName(post.name);
 								setNewText(post.text);
-								setNewForField(post.forField)
 							}}
-						>
-							Редактировать
-						</button>
-						<button
-							className="save"
+						/>
+						<SaveButton
+							idActivePost={idActivePost}
 							onClick={() => {
 								handleSavePostBtnPress(
 									post.id,
 									newName,
 									newText,
-									newForField,
+									"student",
+									setIdActivePost,
+									setPostsLists,
+									setFilteredPostsLists,
+									postsList,
+									filteredPostsList,
 								);
-							}}
-							style={{
-								display: idActivePost != null ? "flex" : "none",
-							}}
-						>
-							Сохранить
-						</button>
+							}
+							}
+						/>
 					</div>
 				</div>
 				<img
@@ -170,7 +131,7 @@ const ControlStudentPosts = () => {
 					src={esc}
 					onClick={() => {
 						deletePost(post.id);
-						prepareData();
+						prepareData("student", setPostsLists, setFilteredPostsLists);
 					}}
 				/>
 			</div>
@@ -217,10 +178,10 @@ const ControlStudentPosts = () => {
 							/>
 						</div>
 					</div>
-
-					<button className="button" type="submit">
+					<AddButton text="Добавить пост" />
+					{/* <button className="button" type="submit">
 						Добавить пост
-					</button>
+					</button> */}
 				</form>
 			</div>
 			<div className="Main">

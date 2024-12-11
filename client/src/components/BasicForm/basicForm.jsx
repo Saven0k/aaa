@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form'
-import { findUser } from '../../services/workWithBd';
 import { useState } from 'react';
 import './style.css'
 import MediumTitle from '../MediumTitle/MediumTitle';
@@ -19,14 +18,19 @@ const BasicForm = () => {
         mode: `onChange`
     });
 
+
+
+
     const onSubmit = async (data = getValues("email")) => {
         const email = data.email;
         const password = data.password;
         if (email == "admin", password == "admin") {
+            console.log("hello admin")
             window.location.href = '/admin/a'
         } else {
             const res = await findUser(email, password);
             if (res) {
+                console.log("hello teacher")
                 window.location.href = '/teacher'
                 await new Promise((resolve) => setTimeout(resolve, 1000))
                 // const newLocal = actions.resetForm();
@@ -59,10 +63,6 @@ const BasicForm = () => {
                                 value: 25,
                                 message: "Длинна не должна быть больше 25"
                             },
-                            // pattern: {
-                            //     value: /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/,
-                            //     message: "Пример: email@email.com"
-                            // }
                         })}
                     />
                 </div>
@@ -84,10 +84,6 @@ const BasicForm = () => {
                                 value: 25,
                                 message: "Длинна не должна быть больше 25"
                             },
-                            // pattern: {
-                            //     value:  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
-                            //     message: "Пример: email@email.com"
-                            // },
                         })}
                     />
                 </div>

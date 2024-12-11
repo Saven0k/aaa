@@ -1,24 +1,23 @@
 import { useState } from "react";
-import ControlStudentPosts from "../ControlPosts/ControlPosts";
+import ControlStudentPosts from "../ControlStudentPosts/ControlStudentPosts";
 import ControlTeacherPosts from "../ControlTeacherPosts/ControlTeacherPosts";
 import ControlUsers from "../ControlUsers/ControlUsers";
-import Header from "../header/Header";
 import "./style.css";
 
 const Component = () => {
-	const [x, setX] = useState(false);
+	// const [x, setX] = useState(false);
 	return (
 		<div className="workBlock">
 			<details
 				name="work"
 				className="details"
-				open={x}
-				onClick={() => {
-					setX(!x);
-				}}
+				// open={x}
+				// onClick={() => {
+				// 	setX(!x);
+				// }}
 			>
 				<summary className="summary">Работа с пользователями</summary>
-				{x && <ControlUsers />}
+				<ControlUsers />
 			</details>
 			<details name="work" className="details">
 				<summary className="summary">

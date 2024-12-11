@@ -10,7 +10,7 @@
         font-size: 28px;
         font-weight: 400;
         font-style: normal;
-        
+
     }
 
     details>summary {
@@ -22,7 +22,17 @@
 
     details[open] {
         font-style: italic;
-        animation: slide .8s linear alternate ;
+        animation: slide .8s linear alternate;
+        /* position: sticky;
+        top: 0; */
+    }
+
+    details[open] summary {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        z-index: 9;
+        border: 1px solid #9c9c8c;
     }
 
     summary::-webkit-details-marker {

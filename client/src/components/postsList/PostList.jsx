@@ -1,11 +1,10 @@
 import { filterPost } from "../../services/filterFunc";
-import { getPosts } from "../../services/workWithBd";
-import CustomInput from "../CustomInput/CustomInput";
+import { getPostFor, getPosts } from "../../services/workWithBd";
 import { NothingNot, PostsListOkView } from "../PostListOk/PostListOk";
 import "./style.css";
 import { useEffect, useState } from "react";
 
-const PostList = () => {
+const PostList = ({type}) => {
 
 	// State for posts list
 	const [postsList, setPostsLists] = useState([]);
@@ -19,7 +18,7 @@ const PostList = () => {
 
 	// Function to query data from a database.
 	async function prepareData() {
-		const posts = await getPosts();
+		const posts = await getPostFor(type);
 		setPostsLists(posts);
 		setFilteredPostsLists(posts);
 	}

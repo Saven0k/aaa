@@ -13,7 +13,7 @@ export async function getPosts() {
 			);
 		}
 
-		console.log("Список постов получен:", data.posts);
+		// console.log("Список постов получен:", data.posts);
 		return data.posts;
 	} catch (error) {
 		console.error("Ошибка при получении списка постов:", error);
@@ -42,7 +42,7 @@ export async function getPostFor(forField) {
 			);
 		}
 
-		console.log("Список постов получен:", data.posts);
+		// console.log("Список постов получен:", data.posts);
 		return data.posts;
 	} catch (error) {
 		console.error("Ошибка при получении списка постов:", error);
@@ -71,7 +71,7 @@ export const updatePost = async (postId, updateName, updateText, updateForFieled
 			}),
 		});
 		const data = await res.json();
-		if (!res.ok) throw new Error(data.message || "put error");
+		// if (!res.ok) throw new Error(data.message || "put error");
 		return true;
 	} catch (err) {
 		console.log(err);
@@ -97,7 +97,7 @@ export async function addPost(newName, newText, forField) {
 		}),
 	})
 		.then((response) => response.json())
-		.then((data) => console.log(data));
+		// .then((data) => console.log(data));
 }
 
 /**
@@ -135,7 +135,7 @@ export async function getUsers() {
 				data.message || "Не удалось получить список пользователей"
 			);
 		}
-		console.log("Список пользователей получен:", data.users);
+		// console.log("Список пользователей получен:", data.users);
 		return data.users;
 	} catch (error) {
 		console.error("Ошибка при получении списка пользователей:", error);
@@ -188,7 +188,7 @@ export async function addUser(newEmail, newPassword) {
 		}),
 	})
 		.then((response) => response.json())
-		.then((data) => console.log(data));
+		// .then((data) => console.log(data));
 }
 
 /**
@@ -231,7 +231,7 @@ export async function findUser(email, password) {
 		});
 		const data = await res.json();
 		if (!res.ok) throw new Error(data.message || "put error");
-		console.log("Пользователь был найден");
+		// console.log("Пользователь был найден");
 		if (data.response) {
 			return true;
 		}

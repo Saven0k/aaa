@@ -1,12 +1,7 @@
-import CustomButton from '../CustomButton/CustomButton';
+import CustomButton from '../CustomButtons/IndexButton/CustomButton'
 import './style.css'
 
 const Footer = () => {
-    const handlClick = (path) => {
-        window.location.href = `${path}`
-    }
-
-
     return (
         <footer className="footer">
             <div className="links">

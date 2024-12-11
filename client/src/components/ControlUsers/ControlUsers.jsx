@@ -9,6 +9,7 @@ import {
 } from "../../services/workWithBd";
 import { filterPost, filterUser } from "../../services/filterFunc";
 import { NothingNot } from "../PostListOk/PostListOk";
+import AddButton from "../CustomButtons/AddButton/AddButton";
 
 const ControlUsers = () => {
 	// State for users list
@@ -213,10 +214,7 @@ const ControlUsers = () => {
 							/>
 						</div>
 					</div>
-
-					<button className="button" type="submit">
-						Добавить пользователя
-					</button>
+					<AddButton text="Добавить пользователя" />
 				</form>
 			</div>
 			<div className="Main">

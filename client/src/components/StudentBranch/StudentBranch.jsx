@@ -9,7 +9,7 @@ const StudentBranch = () => {
             <MediumTitle>
                 Отделы для студентов
             </MediumTitle>
-            <PostList/>
+            <PostList type="student"/>
         </div>
     )
 }

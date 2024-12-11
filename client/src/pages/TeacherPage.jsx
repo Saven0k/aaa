@@ -1,9 +1,13 @@
-import ControlTeacherPosts from "../components/ControlTeacherPosts/ControlTeacherPosts";
+import Footer from "../components/footer/Footer";
+import Header from "../components/header/Header";
+import TeacherBranch from "../components/TeacherBranch/TeacherBranch";
 
 const TeacherPage = () => {
     return (
         <div className="teacherPage">
-            <ControlTeacherPosts />
+            <Header exit={true} />
+            <TeacherBranch />
+            <Footer />
         </div>
     )
 }

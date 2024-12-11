@@ -1,99 +1,89 @@
 import { useState } from 'react';
-import { basicSchema } from '../../schemas';
 import './style.css'
-import { useFormik } from 'formik'
-import { findUser } from '../../services/workWithBd';
-import TextField from '@mui/material/TextField';
-import MediumTitle from '../MediumTitle/MediumTitle'
+import { useForm } from 'react-hook-form'
+import AddButton from '../CustomButtons/AddButton/AddButton';
+import { addPost } from '../../services/workWithBd';
 
-const BasicLoginForm = () => {
-    const [attempts, setAttempts] = useState(2);
+const BasicLoginForm = ({thema}) => {
+    const [attempts, setAttempts] = useState(5);
 
-    const onSubmit = async (values, actions) => {
-        const res = await findUser(values.email, values.password);
-        if (res) {
-            window.location.href = '/admin/a'
-            await new Promise((resolve) => setTimeout(resolve, 1000))
-            actions.resetForm();
-        }
-        if (attempts > 1) {
-            setAttempts(attempts - 1);
-            alert('Неправильный логин или пароль. Осталось попыток: ' + attempts);
-        } else {
-            alert('У вас закончились попытки входа');
-        }
-    }
-
-    const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
+    const {
+        register,
+        formState: {
+            errors, isValid,
         },
-        validationSchema: basicSchema,
-        onSubmit,
+        reset,
+        handleSubmit,
+        getValues,
+    } = useForm({
+        mode: `onChange`
     });
 
+    const onSubmit = async (data) => {
+        const email = data.email;
+        const password = data.password;
+        addPost(email, password, thema.type)
+        reset()
+        
+    }
+        return (
+            <div className='basicForm'>
+                <form action="" onSubmit={handleSubmit(onSubmit(getValues("email"), setAttempts, attempts))} >
+                    <div className='form-element'>
+                        <label>Введите {thema[0]} нового пользователя</label>
+                        <input
+                            className='email input'
+                            type='text'
+                            style={{ borderColor: errors.email ? '#f18181' : '#000' }}
+                            {...register('email', {
+                                required: "Поле обязательно к заполнению",
+                                minLength: {
+                                    value: 5,
+                                    message: "Длинна должна быть больше 5"
+                                },
+                                maxLength: {
+                                    value: 25,
+                                    message: "Длинна не должна быть больше 25"
+                                },
+                                pattern: {
+                                    value: /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/,
+                                    message: "Пример: email@email.com"
+                                }
+                            })}
+                        />
+                    </div>
+                    {errors.email && <p className="error">{errors.email.message || "Error"}</p>}
+                    <div className='form-element'>
 
-    return (
-        <form className='form' onSubmit={handleSubmit} autoComplete='off'>
-            <MediumTitle>Вход в учительскую</MediumTitle>
-            {/* <label htmlFor="email">Email</label> */}
-            {/* <input
-                className={errors.email && touched.email ? "input-error input" : "input-good input"}
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id='email'
-                type='email'
-                placeholder='Enter your email'
-            /> */}
-            <TextField
-                // id="standard-basic"
-                label="Email"
-                variant="standard"
-                // className={errors.email && touched.email ? "input-error input" : "input-good input"}
-                className={"input"}
-                value={values.email}
-                onChange={handleChange}
-                // onBlur={handleBlur}
-                error={errors.email ? true: false}
-                type='email'
-            />
-            {errors.email && touched.email && <p className='error'>{errors.email}</p>}
-            <TextField
-                id="standard-basic"
-                label="Пароль"
-                variant="standard"
-                value={values.password}
-                onChange={handleChange}
-                error={errors.password ? true: false}
-                type='current-password'
-                // className={errors.password && touched.password ? "input-error input" : "input-good input"}
-                className={"input"}
-            />
-            {/* <input
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id='password'
-                type='password'
-                placeholder='Enter your password'
-                className={errors.password && touched.password ? "input-error input" : "input-good input"}
-            /> */}
-            {errors.password && touched.password && <p className='error'>{errors.password}</p>}
-            <button
-                type='submit'
-                disabled={isSubmitting ? true: false}
-                className='button'
-                onClick={(e) => {
-                    const res = findUser(values.email, values.password)
-                }}
-            >
-                Войти
-            </button>
+                        <label>Введите {thema[1]} нового пользователя</label>
+                        <input
+                            className='password'
+                            type="text"
+                            style={{ borderColor: errors.password ? '#f18181' : '#000' }}
+                            {...register('password', {
+                                required: "Поле обязательно к заполнению",
+                                minLength: {
+                                    value: 5,
+                                    message: "Длинна должна быть больше 5"
+                                },
+                                maxLength: {
+                                    value: 25,
+                                    message: "Длинна не должна быть больше 25"
+                                },
+                                pattern: {
+                                    value:  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+                                    message: "Подсказка: Одна заглавная, одна цифра!"
+                                },
+                            })}
+                        />
+                    </div>
+                    {errors.password && <p className="error">{errors.password.message || "Error"}</p>}
+                    <AddButton disabled={!isValid} text={"Войти"}/>
+                    {/* <button className='button' disabled={!isValid}>Войти</button> */}
+                </form>
+            </div>
+        )
 
-        </form>
-    )
-}
+    }
 
-export default BasicLoginForm;
+    export default BasicLoginForm;
