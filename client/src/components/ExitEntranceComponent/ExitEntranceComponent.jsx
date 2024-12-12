@@ -16,7 +16,7 @@ export const EntranceComponent = () => {
 export const ExitComponent = () => {
     return (
         <div className="icoBox exit">
-            <Link to={'/index'}>
+            <Link to={'/student'}>
                 <img className="imgIco" src={exit} alt="" />
             </Link>
         </div>

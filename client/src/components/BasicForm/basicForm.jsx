@@ -3,11 +3,13 @@ import { useState } from 'react';
 import './style.css'
 import MediumTitle from '../MediumTitle/MediumTitle';
 import { findUser } from '../../services/workWithBd';
+import { useMyContext } from '../../services/MyProvider/MyProvider';
 
 const BasicForm = () => {
     const [attempts, setAttempts] = useState(5);
+    const { contextState, updateContextState } = useMyContext();
     const [viewPassword, setViewPassword] = useState(false)
-        
+
     // UseForm, use tags
     const {
         register,
@@ -21,19 +23,21 @@ const BasicForm = () => {
         mode: `onChange`
     });
 
-	/**
-	 * Function to submit form
-	 * @param {object} data 
-	 */
-	const onSubmit = async (data = getValues("email")) => {
+    /**
+     * Function to submit form
+     * @param {object} data 
+     */
+    const onSubmit = async (data = getValues("email")) => {
         const email = data.email;
         const password = data.password;
         if (email == "admin", password == "admin") {
             console.log("hello admin")
             window.location.href = '/admin/a'
+            updateContextState({ type: "admin", timestamp: Date.now() });
         } else {
             const res = await findUser(email, password);
             if (res) {
+                updateContextState({ type: "teacher", timestamp: Date.now() });
                 console.log("hello teacher")
                 window.location.href = '/teacher'
                 await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -56,6 +60,8 @@ const BasicForm = () => {
                     <label>Email</label>
                     <input
                         className='email input'
+                        autoComplete='username'
+                        // autoComplete="current-password"
                         type='text'
                         style={{ borderColor: errors.email ? '#f18181' : '#000' }}
                         {...register('email', {
@@ -76,6 +82,7 @@ const BasicForm = () => {
 
                     <label>Пароль</label>
                     <input
+                        autoComplete='current-password'
                         className='password'
                         type={viewPassword ? 'text' : 'password'}
                         style={{ borderColor: errors.password ? '#f18181' : '#000' }}
