@@ -1,4 +1,4 @@
-import { getPostFor } from "./workWithBd";
+import { getPostsForVisible } from "./workWithBd";
 
 /**
  * Function to query data from a database.
@@ -7,8 +7,9 @@ import { getPostFor } from "./workWithBd";
  * @param {func} funcS 
  */
 export default async function prepareData(type, funcF, funcS) {
-    const posts = await getPostFor(type);
+    const posts = await getPostsForVisible(type);
     funcF(posts);
     funcS(posts);
+    
 }
 

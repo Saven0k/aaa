@@ -3,6 +3,10 @@ import entrance from './images/login.png'
 import exit from './images/exit.png'
 import './style.css'
 
+/**
+ * React component, which create button with  entrance img;
+ * @returns entrance button
+ */
 export const EntranceComponent = () => {
     return (
         <div className="icoBox">
@@ -13,6 +17,10 @@ export const EntranceComponent = () => {
     )
 }
 
+/**
+ * React component, which create button with  exit img;
+ * @returns exit button
+ */
 export const ExitComponent = () => {
     return (
         <div className="icoBox exit">

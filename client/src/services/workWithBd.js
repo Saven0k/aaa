@@ -19,6 +19,7 @@ export async function getPosts() {
 		console.error("Ошибка при получении списка постов:", error);
 	}
 }
+
 /**
  *  Retrieves all records from the database.
  * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
@@ -50,13 +51,42 @@ export async function getPostFor(forField) {
 }
 
 /**
+ *  Retrieves all records from the database.
+ * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
+ */
+export async function getPostsForVisible(forField) {
+	try {
+        const res = await fetch("/api/getPostsForVisible", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				forField: forField,
+			}),
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			throw new Error(
+				data.message || "Не удалось получить список постов"
+			);
+		}
+		return data.posts;
+	} catch (error) {
+		console.error("Ошибка при получении списка постов:", error);
+	}
+}
+
+/**
  * Updates the content of an existing post in the database.
  * @param {string} postId
  * @param {string} updateName
  * @param {string} updateText
+ * @param {string} updateForFieled
+ * @param {string} updateVisible
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
-export const updatePost = async (postId, updateName, updateText, updateForFieled) => {
+export const updatePost = async (postId, updateName, updateText, updateForFieled, updateVisible) => {
 	try {
 		const res = await fetch(`/api/update/${postId}`, {
 			method: "PUT",
@@ -68,10 +98,10 @@ export const updatePost = async (postId, updateName, updateText, updateForFieled
 				name: updateName,
 				text: updateText,
                 forField: updateForFieled,
+				visible: updateVisible,
 			}),
 		});
 		const data = await res.json();
-		// if (!res.ok) throw new Error(data.message || "put error");
 		return true;
 	} catch (err) {
 		console.log(err);
@@ -83,8 +113,10 @@ export const updatePost = async (postId, updateName, updateText, updateForFieled
  *  Adds a new post to the database.
  * @param {string} newName
  * @param {string} newText
+ * @param {string} forField
+ * @param {string} visible
  */
-export async function addPost(newName, newText, forField) {
+export async function addPost(newName, newText, forField, visible) {
 	fetch("/api/add", {
 		method: "POST",
 		headers: {
@@ -94,6 +126,7 @@ export async function addPost(newName, newText, forField) {
 			name: newName,
 			text: newText,
             forField: forField,
+			visible: visible,
 		}),
 	})
 		.then((response) => response.json())

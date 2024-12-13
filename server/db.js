@@ -17,7 +17,8 @@ const db = new sqlite3.Database(dbPath, (err) => {
             id TEXT PRIMARY KEY,
             name TEXT,
             text TEXT,
-			for TEXT
+			for TEXT,
+			visible TEXT
         )`,
 			(err) => {
 				if (err) {
@@ -179,19 +180,19 @@ function generateUniqueIdForPost() {
  * @param {string} text
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
-async function createPost(name, text, forField) {
+async function createPost(name, text, forField, visible) {
 	const userId = generateUniqueIdForPost();
-	const sql = `INSERT INTO posts (id, name, text, for) VALUES (?, ?, ?, ?)`;
+	const sql = `INSERT INTO posts (id, name, text, for, visible) VALUES (?, ?, ?, ?, ?)`;
 
 	return new Promise((resolve, reject) => {
-		db.run(sql, [userId, name, text, forField], function (err) {
+		db.run(sql, [userId, name, text, forField, visible], function (err) {
 			if (err) {
 				console.error("Ошибка базы данных:", err.message);
 				return reject(new Error("Ошибка регистрации поста"));
 			}
 
 			console.log(
-				`Запись добавлена: ${userId}, ${name}, ${text}, ${forField}`
+				`Запись добавлена: ${userId}, ${name}, ${text}, ${forField}, ${visible}`
 			); // Добавлено для отладки
 			resolve({
 				userId,
@@ -225,6 +226,25 @@ async function getAllPosts() {
  * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
  */
 async function getPostsFor(forField) {
+	const sql = `SELECT * FROM posts WHERE for = ? AND visible = ?`;
+
+	return new Promise((resolve, reject) => {
+		db.all(sql, [forField, "true"], function (err, rows) {
+			if (err) {
+				console.error("Ошибка базы данных:", err.message);
+				return reject(new Error("Ошибка вывода всех постов"));
+			}
+			console.log("Записи выведены");
+			resolve(rows);
+		});
+	});
+}
+
+/**
+ * // Function to display data from a table
+ * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
+ */
+async function getPostsForVisible(forField) {
 	const sql = `SELECT * FROM posts WHERE for = ?`;
 
 	return new Promise((resolve, reject) => {
@@ -246,11 +266,11 @@ async function getPostsFor(forField) {
  * @param {string} text
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
-async function updatePost(id, name, text, forField) {
-	const sql = `UPDATE posts SET name = ?, text = ?, for = ? WHERE id = ?`;
+async function updatePost(id, name, text, forField, visible) {
+	const sql = `UPDATE posts SET name = ?, text = ?, for = ?, visible = ? WHERE id = ?`;
 
 	return new Promise((resolve, reject) => {
-		db.run(sql, [name, text, forField, id], function (err) {
+		db.run(sql, [name, text, forField, visible, id], function (err) {
 			if (err) {
 				console.error("Ошибка базы данных:", err.message);
 				return reject(new Error("Ошибка обновления поста"));
@@ -298,5 +318,6 @@ module.exports = {
 	updateUser,
 	deleteUser,
 	findUser,
+	getPostsForVisible,
 	db,
 };

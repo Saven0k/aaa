@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom"
 import './style.css'
-import { createContext, useContext } from "react"
 import { MyProvider, useMyContext } from "../../services/MyProvider/MyProvider";
 
+/**
+ * React component, which create style for index page.
+ * @returns styled page
+ */
 const SelectionComp = () => {
     const { contextState, updateContextState } = useMyContext();
     const handleClick1 = (type) => {
         updateContextState({ type: type, timestamp: Date.now() });
     };
-    console.log(JSON.parse(localStorage.getItem("contextState")).type)
     return (
         <MyProvider>
             <div className="selection-page">
@@ -19,10 +21,10 @@ const SelectionComp = () => {
                 {(JSON.parse(localStorage.getItem("contextState")).type === "teacher") ?
                     <Link to={'/teacher'}>
                         <button className="buttonGo" id="lox">Я преподаватель</button>
-                    </Link> 
-                    : 
+                    </Link>
+                    :
                     <Link to={'/login'}>
-                        <button className="buttonGo" id="ti" onClick={() => handleClick1("teacher")}>Я преподаватель</button>
+                        <button className="buttonGo" id="ti">Я преподаватель</button>
                     </Link>
                 }
 
@@ -30,5 +32,4 @@ const SelectionComp = () => {
         </MyProvider>
     )
 }
-
 export default SelectionComp;

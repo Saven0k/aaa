@@ -1,6 +1,10 @@
 import './style.css'
 
-
+/**
+ * React component,which creates a big headline (title)
+ * @param {string} children 
+ * @returns react component
+ */
 const BigTitle = ({ children }) => {
     return (
         <h1 className='h1'>
@@ -8,5 +12,4 @@ const BigTitle = ({ children }) => {
         </h1>
     )
 }
-
 export default BigTitle;

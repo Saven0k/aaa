@@ -2,7 +2,10 @@ import './style.css'
 import MediumTitle from '../MediumTitle/MediumTitle'
 import PostList from '../postsList/PostList'
 
-
+/**
+ * React component, which create platform with post list for students.
+ * @returns brach with students post
+ */
 const StudentBranch = () => {
     return (
         <div className="studentBranch">
@@ -11,7 +14,6 @@ const StudentBranch = () => {
             </MediumTitle>
             <PostList type="student"/>
         </div>
-    )
-}
-
+    );
+};
 export default StudentBranch;

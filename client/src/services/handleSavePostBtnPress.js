@@ -10,14 +10,16 @@ export default async function handleSavePostBtnPress(
     func2,
     func3,
     postsList,
-    filteredPostsList) {
-    const res = await updatePost(postID, newName, newText, newForField);
+    filteredPostsList,
+    visible
+) {
+    const res = await updatePost(postID, newName, newText, newForField, visible);
     if (!res) return false;
     func1(null);
     func2(
         postsList.map((post) => {
             return post.id === postID
-                ? { ...post, name: newName, text: newText, forField: newForField }
+                ? { ...post, name: newName, text: newText, forField: newForField, visible: visible }
                 : post;
         })
     );
@@ -25,7 +27,7 @@ export default async function handleSavePostBtnPress(
     func3(
         filteredPostsList.map((post) => {
             return post.id === postID
-                ? { ...post, name: newName, text: newText, forField: newForField }
+                ? { ...post, name: newName, text: newText, forField: newForField, visible: visible }
                 : post;
         })
     );

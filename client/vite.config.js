@@ -16,6 +16,7 @@ export default defineConfig({
 			"/api/deleteUser": "http://localhost:5000",
 			"/api/userFind": "http://localhost:5000",
 			"/api/postsFor": "http://localhost:5000",
+			"/api/getPostsForVisible": "http://localhost:5000",
 		},
 	},
 });

@@ -1,13 +1,12 @@
+import AdminComponent from "../components/AdminComponent/AdminComponent";
 import BigTitle from "../components/BigTitle/BigTitle";
-import Component from "../components/Component/Component";
 import ButtonLink from "../components/CustomButtons/ButtonLink/ButtonLink";
 
 /**
- * Login page
- * @returns Login component
+ * React Component - Admin Page
+ * @returns Admin Page
  */
 const AdminPage = () => {
-
     if (JSON.parse(localStorage.getItem("contextState")).type === "admin") {
         return (
             <div className="AdminPage">
@@ -24,12 +23,10 @@ const AdminPage = () => {
                     <ButtonLink link="/studentLook">Просмотр страницы для студентов</ButtonLink>
                     <ButtonLink link="/teacherLook">Просмотр страницы для  преподавателей</ButtonLink>
                 </div>
-                <Component />
+                <AdminComponent />
             </div>
-        )
-    }
-    window.location.href = '/index'
-
-}
-
+        );
+    };
+    window.location.href = '/index';
+};
 export default AdminPage;

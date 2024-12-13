@@ -7,10 +7,14 @@ import {
 	getUsers,
 	updateUser,
 } from "../../services/workWithBd";
-import { filterPost, filterUser } from "../../services/filterFunc";
-import { NothingNot } from "../PostListOk/PostListOk";
+import { filterUser } from "../../services/filterFunc";
 import AddButton from "../CustomButtons/AddButton/AddButton";
+import NothingNot from "../PostList/NothingNot/NothingNot";
 
+/**
+ * React component, which creates a platform for control  users.
+ * @returns post board
+*/
 const ControlUsers = () => {
 	// State for users list
 	const [usersList, setUsersLists] = useState([]);

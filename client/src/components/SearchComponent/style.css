@@ -1,0 +1,20 @@
+.inputTab {
+    height: 24px;
+    width: 50vw;
+    min-width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 5px;
+    margin-bottom: 8vh;
+
+    input {
+        height: 24px;
+        outline: none;
+        width: 50%;
+        border: none;
+        font-size: 18px;
+        border-bottom: 1px solid black;
+    }
+}

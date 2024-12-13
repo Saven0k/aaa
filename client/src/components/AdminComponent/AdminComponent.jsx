@@ -1,18 +1,21 @@
-import { useState } from "react";
+import "./style.css";
+
 import ControlStudentPosts from "../ControlStudentPosts/ControlStudentPosts";
 import ControlTeacherPosts from "../ControlTeacherPosts/ControlTeacherPosts";
 import ControlUsers from "../ControlUsers/ControlUsers";
-import "./style.css";
 import Statistics from "../Statistics/Statistics";
 
-const Component = () => {
+/**
+ * React component, which creates AdminComponent with some details.
+ * @returns 
+ */
+const AdminComponent = () => {
 	return (
 		<div className="workBlock">
-			<details
-				name="work"
-				className="details"
-			>
-				<summary className="summary">Работа с пользователями</summary>
+			<details name="work" className="details">
+				<summary className="summary">
+					Работа с пользователями
+				</summary>
 				<ControlUsers />
 			</details>
 			<details name="work" className="details">
@@ -32,5 +35,4 @@ const Component = () => {
 		</div>
 	);
 };
-
-export default Component;
+export default AdminComponent;

@@ -1,0 +1,61 @@
+.account {
+    padding: 10vh 10vw;
+    display: flex;
+    flex-direction: column;
+
+    .newPost {
+
+        .form {
+            flex-wrap: wrap;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+
+            .subs {
+                display: flex;
+                gap: 10px;
+                flex-direction: column;
+
+                h2 {
+                    font-size: 22px;
+                }
+
+                .sub {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+
+                    span {
+                        font-size: 21px;
+                        font-weight: 600;
+                        font-style: italic;
+                    }
+
+                    .input {
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        color: #000;
+                        outline: none;
+                        font-size: 14px;
+                        border: 1px solid #000;
+                        min-width: 50vw;
+                    }
+
+                    .inputLike {
+                        max-height: 500px;
+                        min-height: 50px;
+                        max-width: 600px;
+                    }
+
+                    .inputLike::-webkit-scrollbar {
+                        width: 0px;
+                    }
+                }
+
+            }
+        }
+
+    }
+}
