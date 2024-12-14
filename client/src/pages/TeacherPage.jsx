@@ -4,7 +4,7 @@ import StudentBranch from "../components/StudentBranch/StudentBranch";
 import TeacherBranch from "../components/TeacherBranch/TeacherBranch";
 
 const TeacherPage = () => {
-    if (JSON.parse(localStorage.getItem("contextState")).type === "teacher" || JSON.parse(localStorage.getItem("contextState")).type === "teacher" ) {
+    if (JSON.parse(localStorage.getItem("contextState")).type === "teacher" || JSON.parse(localStorage.getItem("contextState")).type === "admin" ) {
         return (
             <div className="teacherPage">
                 <Header exit={true} />

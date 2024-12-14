@@ -1,6 +1,6 @@
 import AdminComponent from "../components/AdminComponent/AdminComponent";
-import BigTitle from "../components/BigTitle/BigTitle";
 import ButtonLink from "../components/CustomButtons/ButtonLink/ButtonLink";
+import BigTitle from "../components/CustomTitles/BigTitle/BigTitle";
 
 /**
  * React Component - Admin Page

@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom"
 import SelectionComp from "../components/SelectionComponent/SelectionComp";
-import BigTitle from '../components/BigTitle/BigTitle'
+import BigTitle from "../components/CustomTitles/BigTitle/BigTitle";
 
 const SelectionPage = () => {
     return (
@@ -10,5 +9,4 @@ const SelectionPage = () => {
         </>
     )
 }
-
 export default SelectionPage;

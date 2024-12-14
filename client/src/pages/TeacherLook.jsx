@@ -1,10 +1,6 @@
 import { Link } from "react-router-dom";
-import BigTitle from "../components/BigTitle/BigTitle";
-import Footer from "../components/footer/Footer";
-import Header from "../components/header/Header";
-import TeacherBranch from "../components/TeacherBranch/TeacherBranch";
-import StudentBranch from "../components/StudentBranch/StudentBranch";
-
+import TeacherPage from "./TeacherPage";
+import BigTitle from "../components/CustomTitles/BigTitle/BigTitle";
 const TeacherLook = () => {
 	if (JSON.parse(localStorage.getItem("contextState")).type === "admin") {
 		return (
@@ -12,10 +8,7 @@ const TeacherLook = () => {
 				<Link to={"/admin/a"}>
 					<BigTitle >Вернуться обратно</BigTitle>
 				</Link>
-				<Header exit={false} />
-				<TeacherBranch />
-				<StudentBranch />
-				<Footer />
+				<TeacherPage />
 			</>
 		);
 	}

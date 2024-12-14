@@ -1,4 +1,4 @@
-import BigTitle from '../BigTitle/BigTitle';
+import BigTitle from '../CustomTitles/BigTitle/BigTitle'
 import { EntranceComponent, ExitComponent } from '../ExitEntranceComponent/ExitEntranceComponent';
 import './style.css'
 

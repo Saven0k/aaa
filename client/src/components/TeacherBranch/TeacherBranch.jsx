@@ -1,5 +1,5 @@
 import './style.css'
-import MediumTitle from '../MediumTitle/MediumTitle'
+import MediumTitle from '../CustomTitles/MediumTitle/MediumTitle'
 import PostList from '../postsList/PostList';
 
 /**
