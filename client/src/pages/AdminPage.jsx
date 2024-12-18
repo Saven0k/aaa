@@ -18,6 +18,7 @@ const AdminPage = () => {
                         marginTop: "15px",
                         justifyContent: "center",
                         alignItems: "center",
+                        flexWrap: "wrap",
                     }}>
                     <BigTitle>Добро пожаловать в панель админа</BigTitle>
                     <ButtonLink link="/studentLook">Просмотр страницы для студентов</ButtonLink>

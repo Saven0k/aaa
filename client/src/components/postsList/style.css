@@ -1,8 +1,6 @@
 .Main {
     display: flex;
     align-items: start;
-    padding-left: 25px;
-    padding-right: 25px;
     flex-direction: column;
 }
 

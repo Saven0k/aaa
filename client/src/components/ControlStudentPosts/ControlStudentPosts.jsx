@@ -33,15 +33,15 @@ const ControlStudentPosts = () => {
 	}
 
 	return (
-		<>
-			<AddPostComponent setFilteredPostsLists={setFilteredPostsLists} setPostsLists={setPostsLists} type={"student"} />
+		<div className="account">
+			<AddPostComponent setFilteredPostsLists={setFilteredPostsLists} setPostsLists={setPostsLists} type={"student"} visible={"true"} />
 			<SearchComponent searchItem={searchItem} handleSearch={handleSearch} />
 			<div className="posts">
 				{filteredPostsList.length != 0
 					? <PostsListChange filteredPostsList={filteredPostsList} setFilteredPostsLists={setFilteredPostsLists} postsList={postsList} setPostsLists={setPostsLists} type="student"  />
 					: <NothingNot />}
 			</div>
-		</>
+		</div>
 	);
 };
 export default ControlStudentPosts;

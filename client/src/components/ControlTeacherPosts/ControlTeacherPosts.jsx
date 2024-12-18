@@ -33,16 +33,19 @@ const ControlTeacherPosts = () => {
 	}, []);
 
 	return (
-		<>
-			<AddPostComponent setFilteredPostsLists={setFilteredPostsLists} setPostsLists={setPostsLists} type={"teacher"} />
-			<SearchComponent searchItem={searchItem} handleSearch={handleSearch} />
-			<div className="posts">
-				{filteredPostsList.length != 0
-					? <PostsListChange filteredPostsList={filteredPostsList} setFilteredPostsLists={setFilteredPostsLists} postsList={postsList} setPostsLists={setPostsLists} type="teacher" />
-					: <NothingNot />}
+		<div className="account">
 
+			<div className="teacherControl">
+				<AddPostComponent setFilteredPostsLists={setFilteredPostsLists} setPostsLists={setPostsLists} type={"teacher"} visible={"true"} />
+				<SearchComponent searchItem={searchItem} handleSearch={handleSearch} />
+				<div className="posts">
+					{filteredPostsList.length != 0
+						? <PostsListChange filteredPostsList={filteredPostsList} setFilteredPostsLists={setFilteredPostsLists} postsList={postsList} setPostsLists={setPostsLists} type="teacher" />
+						: <NothingNot />}
+
+				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 export default ControlTeacherPosts;
