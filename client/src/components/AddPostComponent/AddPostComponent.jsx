@@ -3,11 +3,9 @@ import { funcToTallInput } from '../../services/inputSizeFunc';
 import prepareData from '../../services/prepareData';
 import { addPost } from '../../services/workWithBd';
 import AddButton from '../CustomButtons/AddButton/AddButton';
-
 import './style.css'
 
 const AddPostComponent = ({ setPostsLists, setFilteredPostsLists, type, visible }) => {
-
     // States for new post {name, text}
     const [nameNewPost, setNameNewPost] = useState("");
     const [textNewPost, setTextNewPost] = useState("");

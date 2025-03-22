@@ -4,7 +4,6 @@
     flex-direction: column;
     
     .newuser {
-        
         .form {
             flex-wrap: wrap;
             display: flex;
@@ -34,11 +33,10 @@
                     .input {
                         padding: 5px 10px;
                         border-radius: 5px;
-                        color: #000;
                         outline: none;
                         font-size: 14px;
                         border: 1px solid #000;
-                        min-width: 50vw;
+                        min-width: 20vw;
                     }
                     .inputLike {
                         max-height: 500px;
@@ -59,9 +57,6 @@
         height: 24px;
         width: 50vw;
         min-width: 350px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         gap: 15px;
         padding: 5px;
         margin-bottom: 8vh;
@@ -78,25 +73,23 @@
 
 .users {
     gap: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
 
     .user {
-        width: 80vw;
+        max-width: 350px;
+        width: 80%;
         position: relative;
-        padding: 15px 35px;
+        padding: 15px 65px;
         box-shadow: 4px 8px 50px 5px rgba(0,0,0,0.37);
         display: flex;
-        justify-content: start;
+        justify-content: center;
         align-items: center;
         flex-direction: row;
 
         .inputs {
             display: flex;
             flex-direction: column;
-            display: flex;
             flex-wrap: wrap;
         }
 
@@ -104,10 +97,8 @@
             border: none;
             color: #000;
             padding: 4px 7px;
-            background-color: #fff;
             outline: none;
-            max-width: 1000px;
-            min-width: 60vw;
+            min-width: 80%;
             flex-wrap: wrap;
             text-wrap: wrap;
             font-size: 14px;
@@ -169,7 +160,6 @@
         .save {
             margin-top: 15px;
             background-color: #fff;
-            
             border-radius: 15px;
             padding: 3px 5px;
             color: #07d333;
@@ -180,6 +170,5 @@
         .save:hover {
             transform: scale(1.1);
         }
-
     }
 }

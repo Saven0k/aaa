@@ -18,7 +18,6 @@ import handleSavePostBtnPress from '../../../services/handleSavePostBtnPress'
  * @returns list with posts, which we can change.
  */
 const PostsListChange = ({ filteredPostsList, setFilteredPostsLists, postsList, setPostsLists, type }) => {
-
     // State for editing post {name,text}
     const [newName, setNewName] = useState("");
     const [newText, setNewText] = useState("");

@@ -1,8 +1,8 @@
 import './style.css'
 
-const AddButton = ({text, disabled}) => {
+const AddButton = ({ text, disabled }) => {
     return (
-        <button className="button" type="submit" disabled={disabled}>
+        <button className="button center" type="submit" disabled={disabled}>
             {text}
         </button>
     )

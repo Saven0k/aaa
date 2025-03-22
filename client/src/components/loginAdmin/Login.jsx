@@ -1,4 +1,3 @@
-import './style.css'
 import BasicForm from '../BasicForm/basicForm'
 
 /**
@@ -7,7 +6,7 @@ import BasicForm from '../BasicForm/basicForm'
  */
 const Login = () => {
     return (
-        <div className="all">
+        <div className="all center" style={{    width: "100vw"}}>
             <BasicForm/>
         </div >
     )

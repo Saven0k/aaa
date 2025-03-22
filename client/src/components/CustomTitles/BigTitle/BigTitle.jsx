@@ -1,5 +1,3 @@
-import './style.css'
-
 /**
  * React component,which creates a big headline (title)
  * @param {string} children 
@@ -7,7 +5,7 @@ import './style.css'
  */
 const BigTitle = ({ children }) => {
     return (
-        <h1 className='h1'>
+        <h1 className='h1 center' style={{fontSize: "28px"}}>
             {children}
         </h1>
     )

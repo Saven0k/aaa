@@ -16,6 +16,7 @@ import NothingNot from "../PostList/NothingNot/NothingNot";
  * @returns post board
 */
 const ControlUsers = () => {
+
 	// State for users list
 	const [usersList, setUsersLists] = useState([]);
 
@@ -220,7 +221,7 @@ const ControlUsers = () => {
 					<AddButton text="Добавить пользователя" />
 				</form>
 			</div>
-			<div className="Main">
+			<div className="Main center">
 				<div className="inputTab">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -249,7 +250,7 @@ const ControlUsers = () => {
 					/>
 				</div>
 
-				<div className="users">
+				<div className="users center">
 					{filteredUsersList.length != 0 ? (
 						<UsersListOk />
 					) : (

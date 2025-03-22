@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const MyThemeContext = createContext();
 
+
 export const useMyThemeContext = () => {
   return useContext(MyThemeContext);
 };

@@ -5,13 +5,12 @@ const MyContext = createContext();
 export const useMyContext = () => {
   return useContext(MyContext);
 };
-
 export const MyProvider = ({ children }) => {
-  const [contextState, setContextState] = useState({});
+  const [contextState, setContextState] = useState();
 
   const updateContextState = (newValue) => {
     setContextState(newValue);
-    localStorage.setItem("contextState", JSON.stringify(newValue));
+    localStorage.setItem("contextState", newValue);
   };
 
   // console.log(contextState)

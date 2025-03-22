@@ -1,8 +1,0 @@
-.all {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgb(81, 34, 226);
-    background: radial-gradient(circle, rgba(81, 34, 226, 1) 15%, rgba(146, 120, 227, 1) 47%, rgba(124, 93, 222, 1) 90%);
-}

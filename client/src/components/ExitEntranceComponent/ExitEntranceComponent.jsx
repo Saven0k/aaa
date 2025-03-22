@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import entrance from './images/login.png'
-import exit from './images/exit.png'
+import entrance from './images/entrance_ico.svg'
+import exit from './images/exit_ico.svg'
 import './style.css'
 
 /**

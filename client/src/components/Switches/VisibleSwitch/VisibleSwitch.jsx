@@ -1,6 +1,6 @@
 import './style.css'
-import unvisible from './images/visible.png'
-import visibitity from './images/visibility.png'
+import unvisible from './images/visibility.svg'
+import visibitity from './images/visible.svg'
 
 /**
  * React component, which reacte button to change visibility.

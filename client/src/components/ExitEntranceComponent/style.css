@@ -23,7 +23,7 @@
     position: absolute;
     top: 55%;
     left: 110%;
-    content: 'Вход в аккаунт';
+    content: 'Вход';
     color: #000;
     font-size: 14px;
     font-weight: 500;
@@ -34,7 +34,7 @@
     position: absolute;
     top: 55%;
     left: 110%;
-    content: 'Выход из  аккаунта';
+    content: 'Выход';
     color: #000;
     font-size: 14px;
     font-weight: 500;

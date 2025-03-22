@@ -38,7 +38,7 @@ const ControlTeacherPosts = () => {
 			<div className="teacherControl">
 				<AddPostComponent setFilteredPostsLists={setFilteredPostsLists} setPostsLists={setPostsLists} type={"teacher"} visible={"true"} />
 				<SearchComponent searchItem={searchItem} handleSearch={handleSearch} />
-				<div className="posts">
+				<div className="posts center">
 					{filteredPostsList.length != 0
 						? <PostsListChange filteredPostsList={filteredPostsList} setFilteredPostsLists={setFilteredPostsLists} postsList={postsList} setPostsLists={setPostsLists} type="teacher" />
 						: <NothingNot />}

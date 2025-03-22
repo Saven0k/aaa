@@ -4,17 +4,5 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #fff;
-    color: #000;
     gap: 50px;
-
-    .menu {
-        a{
-            font-size: 26px;
-            color: #000;
-            font-weight: bold;
-            font-style: italic;
-        }
-
-    }
 }

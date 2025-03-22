@@ -33,15 +33,14 @@ const BasicForm = () => {
         if (email == "admin", password == "admin") {
             console.log("hello admin")
             window.location.href = '/admin/a'
-            updateContextState({ type: "admin", timestamp: Date.now() });
+            updateContextState("admin");
         } else {
             const res = await findUser(email, password);
             if (res) {
-                updateContextState({ type: "teacher", timestamp: Date.now() });
+                updateContextState("teaher");
                 console.log("hello teacher")
                 window.location.href = '/teacher'
                 await new Promise((resolve) => setTimeout(resolve, 1000))
-                // const newLocal = actions.resetForm();
             }
             if (attempts >= 1) {
                 setAttempts(attempts - 1);
@@ -55,15 +54,16 @@ const BasicForm = () => {
     return (
         <div className='basicForm'>
             <MediumTitle color="white">Вход в учительскую</MediumTitle>
-            <form action="" onSubmit={handleSubmit(onSubmit)} >
+            <form 
+                action=""
+                onSubmit={handleSubmit(onSubmit)}>
                 <div className='form-element'>
                     <label>Email</label>
                     <input
                         className='email input'
                         autoComplete='username'
-                        // autoComplete="current-password"
                         type='text'
-                        style={{ borderColor: errors.email ? '#f18181' : '#000' }}
+                        style={{ borderColor: errors.email ? "red" : "#000" }}
                         {...register('email', {
                             required: "Поле обязательно к заполнению",
                             minLength: {
@@ -77,7 +77,7 @@ const BasicForm = () => {
                         })}
                     />
                 </div>
-                {errors.email && <p className="error">{errors.email.message || "Error"}</p>}
+                {errors.email && <p className="error" style={{color: "red"}}>{errors.email.message || "Error"}</p>}
                 <div className='form-element'>
 
                     <label>Пароль</label>
@@ -85,7 +85,7 @@ const BasicForm = () => {
                         autoComplete='current-password'
                         className='password'
                         type={viewPassword ? 'text' : 'password'}
-                        style={{ borderColor: errors.password ? '#f18181' : '#000' }}
+                        style={{ borderColor: errors.password ? "red" : "#000" }}
                         {...register('password', {
                             required: "Поле обязательно к заполнению",
                             minLength: {

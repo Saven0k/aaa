@@ -5,12 +5,10 @@ form {
     gap: 15px;
     flex-direction: column;
     padding: 25px 35px;
-    background-color: #fff;
     border-radius: 25px;
 
     .error {
         font-size: 14px;
-        color: #f18181;
         font-weight: 700;
         font-style: oblique;
 
@@ -43,10 +41,7 @@ form {
         font-style: normal;
         padding: 9px 13px;
         outline: none;
-        background-color: rgb(228, 74, 119);
         border-radius: 15px;
-
-        color: #fff;
         transition: 0.5s;
     }
 
