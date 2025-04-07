@@ -9,6 +9,7 @@ const { createPost,
 	updateUser, 
 	deleteUser, 
 	findUser, 
+	getPostsForStudent,
 	getPostsFor, 
 	getPostsForVisible} = require("./db"); // Importing the createPost function and the db object
 const app = express();
@@ -36,14 +37,25 @@ app.get("/api/posts", async (req, res) => {
 /**
  * Get posts FOR `item`, api
  */
+app.post("/api/postsForStudent", async (req, res) => {
+	const { course } = req.body;
+	try {
+		const posts = await getPostsFor(course);
+		res.json({ posts }); // Отправляем список постов в формате JSON
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+/**
+ * Get posts FOR `item`, api
+ */
 app.post("/api/postsFor", async (req, res) => {
 	const { forField } = req.body;
 	try {
 		const posts = await getPostsFor(forField);
 		res.json({ posts }); // Отправляем список постов в формате JSON
 	} catch (error) {
-		console.log("a");
-		
 		res.status(500).json({ message: error.message });
 	}
 });
@@ -78,9 +90,9 @@ app.post("/api/add", async (req, res) => {
  * Update post, api
  */
 app.put("/api/update/:id", async (req, res) => {
-	const { id, name, text, forField, visible } = req.body;
+	const { id, name, text, forField, visible, course } = req.body;
 	try {
-		await updatePost(id, name, text, forField, visible);
+		await updatePost(id, name, text, forField, visible, course);
 		res.json({ message: "Пост обновлен" });
 	} catch (error) {
 		res.status(500).json({ message: error.message });

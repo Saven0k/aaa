@@ -8,10 +8,47 @@ import { MyProvider, useMyContext } from "../../services/MyProvider/MyProvider";
  */
 const SelectionComp = () => {
     const { contextState, updateContextState } = useMyContext();
-    
+
     const handleClick1 = (type) => {
         updateContextState(type);
     };
+
+    // const CheckRole = () => {
+    //     if (localStorage.getItem("contextState") === null) {
+    //         localStorage.setItem("contextState", "user")
+    //         window.location.href = '/404'
+    //     }
+    //     else {
+    //         if ((localStorage.getItem("contextState")).type === "teacher") {
+    //             return (
+    //                 <Link to={'/teacher'}>
+    //                     Я преподаватель
+    //                 </Link>
+    //                  <Link to={'/curatorPage'}>
+    //                         <button className="buttonGo">Я куратор</button>
+    //                     </Link>
+    //                     <Link to={'/parentsPage'}>
+    //                         <button className="buttonGo">Я родитель</button>
+    //                     </Link>
+    //             )
+    //         } else {
+    //             return (
+    //                 <>
+    //                     <Link to={'/login'}>
+    //                         <button className="buttonGo">Я преподаватель</button>
+    //                     </Link>
+    //                     <Link to={'/curatorPage'}>
+    //                         <button className="buttonGo">Я куратор</button>
+    //                     </Link>
+    //                     <Link to={'/parentsPage'}>
+    //                         <button className="buttonGo">Я родитель</button>
+    //                     </Link>
+    //                 </>
+    //             )
+    //         }
+    //     }
+    // }
+
 
     const CheckRole = () => {
         if (localStorage.getItem("contextState") === null) {
@@ -22,24 +59,25 @@ const SelectionComp = () => {
             if ((localStorage.getItem("contextState")).type === "teacher") {
                 return (
                     <Link to={'/teacher'}>
-                        <button className="buttonGo" id="lox">Я преподаватель</button>
+                        Я преподаватель / куратор
                     </Link>
                 )
             } else {
                 return (
-                    <Link to={'/login'}>
-                        <button className="buttonGo" id="ti">Я преподаватель</button>
-                    </Link>
+                    <>
+                        <Link to={'/login'}>
+                            <button className="buttonGo">Я преподаватель / куратор</button>
+                        </Link>
+                    </>
                 )
             }
         }
     }
-
     return (
         <MyProvider>
             <div className="selection-page">
                 <Link to={'/student'}>
-                    <button className="buttonGo" onClick={() => handleClick1("student")}>Я студент</button>
+                    <button className="buttonGo" onClick={() => handleClick1("student")}>Я студент / родитель</button>
                 </Link>
                 <CheckRole />
 

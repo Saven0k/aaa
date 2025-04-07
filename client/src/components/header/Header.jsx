@@ -1,14 +1,15 @@
-import BigTitle from '../CustomTitles/BigTitle/BigTitle'
-import { EntranceComponent, ExitComponent } from '../ExitEntranceComponent/ExitEntranceComponent';
+import { Link } from 'react-router-dom';
 import './style.css'
 
-const Header = ({exit}) => {
+const Header = () => {
     return (
         <header className="header">
-            <BigTitle>
-                Добро пожаловать в базу знаний!
-            </BigTitle>
-            {exit ? <ExitComponent/> : <EntranceComponent />}
+            <Link>
+                <img src="" alt="Ico" />
+            </Link>
+            {/* Реализовать поиск по сайту */}
+            <Link className='header_link'>Преподавателям</Link>
+            <Link className='header_link'>Кураторам</Link>
         </header>
     )
 }

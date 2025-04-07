@@ -1,56 +1,43 @@
-.datails {
-    background-color: rgb(37, 60, 163);
+.accordion_posts {
     width: 100%;
-    padding: 25px 5px 25px 15px;
-}
-
-details>summary {
-    list-style: none;
     display: flex;
-    gap: 10px;
-    font-size: 28px;
-    font-weight: 400;
-    font-style: normal;
+    flex-direction: column;
+    gap: 30px;
 }
 
-.details-info p{
-    background-color: #fff;
+.accordion_posts-item {
+    margin-left: 25px;
+    margin-bottom: 10px;
+}
+
+.accordion_posts-button {
+    width: 70%;
+    padding: 10px;
+    text-align: left;
+    position: relative;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    font-size: 19px;
     border-radius: 15px;
-    text-wrap: wrap;
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    height: auto;
-    padding: 15px 25px 15px 35px;
+    transition: background-color 0.3s ease;
+}
+
+.accordion_posts-button:hover {
+    background-color: #ddd;
+}
+
+.accordion_posts-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 10px;
     font-size: 16px;
+    background-color: #f9f9f9;
 }
 
-
-details[open] {
-    font-style: italic;
-    animation: slide .8s linear alternate ;
-}
-
-summary::-webkit-details-marker {
-    display: none
-}
-
-summary::before {
-    content: '👉';
-}
-
-details[open] summary:before {
-    margin-top: 5px;
-    content: " 👇";
-}
-@keyframes slide {
-    0% {
-        opacity: 0;
-        transform: translate(0, -10px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translate(0, 0);
-    }
+.accordion_posts-content.open {
+    max-height: 2550px;
+    padding: 10px;
 }

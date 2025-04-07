@@ -1,11 +1,12 @@
 .Main {
+    margin-top: 50px;
     display: flex;
     align-items: start;
     flex-direction: column;
 }
 
 .posts {
-    gap: 5px;
+    gap: 50px;
     display: flex;
     justify-content: start;
     align-items: start;

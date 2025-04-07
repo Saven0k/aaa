@@ -1,4 +1,4 @@
-import Login from "../components/loginAdmin/login";
+import BasicForm from "../components/BasicForm/basicForm";
 
 /**
  * Login page
@@ -6,7 +6,7 @@ import Login from "../components/loginAdmin/login";
  */
 const LoginPage = () => {
     return (
-        <Login />
+        <BasicForm />
     )
 }
 

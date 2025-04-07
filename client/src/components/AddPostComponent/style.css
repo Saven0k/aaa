@@ -21,6 +21,7 @@
                 flex-wrap: wrap;
                 gap: 10px;
 
+
                 span {
                     font-size: 21px;
                 }
@@ -48,4 +49,16 @@
         }
     }
 
+}
+
+
+@media screen and (max-width: 500px) {
+    .account .newPost .form .subs  {
+        h2 {
+            font-size: 14px;
+        }
+        .sub span {
+            font-size: 16px;
+        }
+    }
 }

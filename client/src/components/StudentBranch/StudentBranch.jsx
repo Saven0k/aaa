@@ -1,6 +1,8 @@
 import './style.css'
-import MediumTitle from '../CustomTitles/MediumTitle/MediumTitle'
 import PostList from '../postsList/PostList'
+import Header from "../header/Header";
+import BigTitle from '../CustomTitles/BigTitle/BigTitle';
+import MediumTitle from '../CustomTitles/MediumTitle/MediumTitle';
 
 /**
  * React component, which create platform with post list for students.
@@ -8,11 +10,12 @@ import PostList from '../postsList/PostList'
  */
 const StudentBranch = () => {
     return (
-        <div className="studentBranch">
-            <MediumTitle>
-                Отделы для студентов
-            </MediumTitle>
-            <PostList type="student"/>
+        <div className='student_branch'>
+            <Header />
+            <div className="title-hello">
+                <h1 className='h1-hello'>Добро пожаловать в базу знаний!</h1>
+            </div>
+            <PostList type="student" />
         </div>
     );
 };

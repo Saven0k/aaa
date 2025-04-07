@@ -6,7 +6,7 @@
 const MediumTitle = ({ children, color }) => {
 
     return (
-        <h2 className='h2' style={{ marginTop: "35px", fontSize: "22px", margin: "12px 0 9px 11px" }}>
+        <h2 className='h2' style={{ marginTop: "35px", fontSize: "22px", margin: "12px 0 9px 11px", fontWeight: "900", fontStyle:"italic" }}>
             {children}
         </h2>
     )

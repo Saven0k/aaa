@@ -5,7 +5,7 @@
  */
 const BigTitle = ({ children }) => {
     return (
-        <h1 className='h1 center' style={{fontSize: "28px"}}>
+        <h1 className='h1 center' style={{fontSize: "3.2vw", marginTop: "20px"}}>
             {children}
         </h1>
     )

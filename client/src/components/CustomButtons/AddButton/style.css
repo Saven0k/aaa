@@ -3,7 +3,7 @@
     min-width: 80px;
     height: 70px;
     border-radius: 15px;
-    font-size: 13px;
+    font-size: 16px;
     text-align: center;
     transition: 0.5s;
     border: none;
@@ -11,5 +11,5 @@
 
 .button:hover {
     transform: scale(1.1);
-    background-color: #e264d1;
+    box-shadow: 2px 3px 10px #000;
 }

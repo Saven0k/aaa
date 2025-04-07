@@ -9,7 +9,7 @@ import visibitity from './images/visible.svg'
 const VisibleSwitch = ({ visible, setVisible, disabled }) => {
     return (
         <button
-            className={visible === "true" ? `button_change_themes visible` : `button_change_themes unvisible`}
+            className={visible === "true" ? `button_change_themes visible__button` : `button_change_themes unvisible__button`}
             disabled={disabled}
             style={{
                 backgroundImage: visible === "true" ? `url(${visibitity})` : `url(${unvisible})`

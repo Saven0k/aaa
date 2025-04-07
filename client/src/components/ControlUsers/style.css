@@ -1,5 +1,4 @@
 .account {
-    padding: 10vh 10vw;
     display: flex;
     flex-direction: column;
     
@@ -52,24 +51,6 @@
 
     }
 }
-.Main {
-    .inputTab {
-        height: 24px;
-        width: 50vw;
-        min-width: 350px;
-        gap: 15px;
-        padding: 5px;
-        margin-bottom: 8vh;
-        input {
-            height: 24px;
-            outline: none;
-            width: 50%;
-            border:none;
-            font-size: 18px;
-            border-bottom: 1px solid black;
-        }
-    }
-}
 
 .users {
     gap: 50px;
@@ -80,7 +61,7 @@
         max-width: 350px;
         width: 80%;
         position: relative;
-        padding: 15px 65px;
+        padding: 15px 35px 15px 35px;
         box-shadow: 4px 8px 50px 5px rgba(0,0,0,0.37);
         display: flex;
         justify-content: center;
@@ -169,6 +150,17 @@
 
         .save:hover {
             transform: scale(1.1);
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .account .newuser .form .subs  {
+        h2 {
+            font-size: 14px;
+        }
+        .sub span {
+            font-size: 16px;
         }
     }
 }

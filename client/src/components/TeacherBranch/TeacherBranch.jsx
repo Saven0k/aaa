@@ -10,10 +10,9 @@ const TeacherBranch= () => {
     return (
         <div className="teacherBranch">
             <MediumTitle>
-                Отделы для преподавателей
+                Отдел для преподавателей
             </MediumTitle>
             <PostList type="teacher"/>  
-            <></>
         </div>
     );
 };

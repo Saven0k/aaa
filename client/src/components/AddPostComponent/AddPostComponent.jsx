@@ -27,7 +27,7 @@ const AddPostComponent = ({ setPostsLists, setFilteredPostsLists, type, visible 
                 onSubmit={(e) => RecordingNewPost(e)}
             >
                 <div className="subs">
-                    <h2>Добавление новой задачи: </h2>
+                    <h2>Добавление нового поста: </h2>
                     <div className="sub">
                         <span>Название поста</span>
                         <input

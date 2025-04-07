@@ -15,7 +15,7 @@
     transform: scale(1.3);
 }
 
-.visible:hover::after {
+.visible__button:hover::after {
     content: 'Пост виден студентам и преподавателям';
     top: 13px;
     position: absolute;
@@ -26,7 +26,7 @@
     font-weight: 600;
 }
 
-.unvisible:hover::after {
+.unvisible__button:hover::after {
     top: 17px;
     position: absolute;
     left: 35px;

@@ -37,7 +37,7 @@ const BasicForm = () => {
         } else {
             const res = await findUser(email, password);
             if (res) {
-                updateContextState("teaher");
+                updateContextState("teacher");
                 console.log("hello teacher")
                 window.location.href = '/teacher'
                 await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -53,7 +53,7 @@ const BasicForm = () => {
 
     return (
         <div className='basicForm'>
-            <MediumTitle color="white">Вход в учительскую</MediumTitle>
+            <MediumTitle color="white">Вход</MediumTitle>
             <form 
                 action=""
                 onSubmit={handleSubmit(onSubmit)}>
@@ -63,6 +63,7 @@ const BasicForm = () => {
                         className='email input'
                         autoComplete='username'
                         type='text'
+                        placeholder='Email'
                         style={{ borderColor: errors.email ? "red" : "#000" }}
                         {...register('email', {
                             required: "Поле обязательно к заполнению",
@@ -84,6 +85,7 @@ const BasicForm = () => {
                     <input
                         autoComplete='current-password'
                         className='password'
+                        placeholder='Пароль'
                         type={viewPassword ? 'text' : 'password'}
                         style={{ borderColor: errors.password ? "red" : "#000" }}
                         {...register('password', {
@@ -100,7 +102,7 @@ const BasicForm = () => {
                     />
                 </div>
                 {errors.password && <p className="error">{errors.password.message || "Error"}</p>}
-                <button className='button' disabled={!isValid}>Войти</button>
+                <button className='button-log' disabled={!isValid}>Войти</button>
             </form>
         </div>
     )
