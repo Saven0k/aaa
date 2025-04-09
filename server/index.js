@@ -63,6 +63,19 @@ app.post("/api/postsFor", async (req, res) => {
 /**
  * Get posts FOR `item`, api
  */
+app.post("/api/posts/courses", async (req, res) => {
+	const { course } = req.body;
+	try {
+		const posts = await getPostsForStudent(course);
+		res.json({ posts }); // Отправляем список постов в формате JSON
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+/**
+ * Get posts FOR `item`, api
+ */
 app.post("/api/getPostsForVisible", async (req, res) => {
 	const { forField } = req.body;
 	try {

@@ -245,10 +245,10 @@ async function getPostsFor(forField) {
  * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
  */
 async function getPostsForStudent(course) {
-	const sql = `SELECT * FROM posts WHERE for = ? AND course = ?`;
+	const sql = `SELECT * FROM posts WHERE for = ? AND course = ? AND visible = ?`;
 
 	return new Promise((resolve, reject) => {
-		db.all(sql, ['student', course], function (err, rows) {
+		db.all(sql, ['student', course, 'true'], function (err, rows) {
 			if (err) {
 				console.error("Ошибка базы данных:", err.message);
 				return reject(new Error("Ошибка вывода всех постов"));

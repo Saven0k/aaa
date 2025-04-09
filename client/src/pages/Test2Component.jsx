@@ -44,7 +44,10 @@ const AdminPage2 = () => {
 
         const range = selection.getRangeAt(0);
         const selectedText = range.toString();
-        if (!selectedText) return;
+        if (!selectedText) {
+            setStyles({...styles, color: '#000', fontSize: '14px', fontWeight: 'normal', fontStyle: 'normal'})  
+            return
+        };
 
         const span = document.createElement('span');
         span.style.color = styles.color;
@@ -61,6 +64,7 @@ const AdminPage2 = () => {
             setContent(editorRef.current.innerHTML);
         }
         restoreSelection(); // Восстанавливаем курсор
+        
     };
 
     // Обработчик загрузки изображения
@@ -74,7 +78,7 @@ const AdminPage2 = () => {
 
     // Автоматически применяем стили при их изменении
     useEffect(() => {
-        applyStyleToSelection();
+        applyStyleToSelection(); 
     }, [styles.color, styles.fontSize, styles.fontWeight, styles.fontStyle]);
 
     // Сохраняем пост на сервер

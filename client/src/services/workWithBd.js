@@ -49,6 +49,35 @@ export async function getPostFor(forField) {
 		console.error("Ошибка при получении списка постов:", error);
 	}
 }
+/**
+ *  Retrieves all records from the database.
+ * @returns list: A list of dictionaries, where each dictionary represents a record from the database.
+ */
+export async function getPostForStudent(course) {
+	try {
+        const res = await fetch("/api/posts/courses", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				course: course,
+			}),
+		});
+		const data = await res.json();
+
+		if (!res.ok) {
+			throw new Error(
+				data.message || "Не удалось получить список постов"
+			);
+		}
+
+		// console.log("Список постов получен:", data.posts);
+		return data.posts;
+	} catch (error) {
+		console.error("Ошибка при получении списка постов:", error);
+	}
+}
 
 /**
  *  Retrieves all records from the database.
@@ -86,7 +115,7 @@ export async function getPostsForVisible(forField) {
  * @param {string} updateVisible
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
-export const updatePost = async (postId, updateName, updateText, updateForFieled, updateVisible) => {
+export const updatePost = async (postId, updateName, updateText, updateForFieled, updateVisible, updateForCourse) => {
 	try {
 		const res = await fetch(`/api/update/${postId}`, {
 			method: "PUT",
@@ -99,6 +128,7 @@ export const updatePost = async (postId, updateName, updateText, updateForFieled
 				text: updateText,
                 forField: updateForFieled,
 				visible: updateVisible,
+				course: updateForCourse,
 			}),
 		});
 		const data = await res.json();
@@ -116,7 +146,7 @@ export const updatePost = async (postId, updateName, updateText, updateForFieled
  * @param {string} forField
  * @param {string} visible
  */
-export async function addPost(newName, newText, forField, visible) {
+export async function addPost(newName, newText, forField, visible, course) {
 	fetch("/api/add", {
 		method: "POST",
 		headers: {
@@ -127,6 +157,7 @@ export async function addPost(newName, newText, forField, visible) {
 			text: newText,
             forField: forField,
 			visible: visible,
+			course:course,
 		}),
 	})
 		.then((response) => response.json())
