@@ -73,3 +73,27 @@
     border-radius: 5px;
     
 }
+
+.publicPost {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    .visible-img, .unvisible-img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .visible-img:hover::after {
+        content: 'опубликован';
+        font-size: 12px;
+    }
+    .unvisible-img:hover::after {
+        content: 'неопубликован';
+        font-size: 12px;
+    }
+}

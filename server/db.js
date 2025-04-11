@@ -19,7 +19,8 @@ const db = new sqlite3.Database(dbPath, (err) => {
             text TEXT,
 			for TEXT,
 			course TEXT,
-			visible TEXT
+			visible TEXT,
+			date_created date,
         )`,
 			(err) => {
 				if (err) {
@@ -183,17 +184,24 @@ function generateUniqueIdForPost() {
  */
 async function createPost(name, text, forField, visible, course) {
 	const userId = generateUniqueIdForPost();
-	const sql = `INSERT INTO posts (id, name, text, for, course, visible) VALUES (?, ?, ?, ?, ?, ?)`;
+	const sql = `INSERT INTO posts (id, name, text, for, course, visible, date_created) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
 	return new Promise((resolve, reject) => {
-		db.run(sql, [userId, name, text, forField, course, visible], function (err) {
+		const today = new Date();
+		const formattedDate = [
+			String(today.getDate()).padStart(2, '0'),
+			String(today.getMonth() + 1).padStart(2, '0'),
+			today.getFullYear()
+		].join('.');
+
+		db.run(sql, [userId, name, text, forField, course, visible, formattedDate], function (err) {
 			if (err) {
 				console.error("Ошибка базы данных:", err.message);
 				return reject(new Error("Ошибка регистрации поста"));
 			}
 
 			console.log(
-				`Запись добавлена: ${userId}, ${name}, ${text}, ${forField}, ${visible}, ${course}`
+				`Запись добавлена: ${userId}, ${name}, ${text}, ${forField}, ${visible}, ${course}, ${formattedDate}`
 			); // Добавлено для отладки
 			resolve({
 				userId,
@@ -286,10 +294,15 @@ async function getPostsForVisible(forField) {
  * @returns Returns a promise that resolves to true if the post was successfully updated, or false if the update failed.
  */
 async function updatePost(id, name, text, forField, visible, course) {
-	const sql = `UPDATE posts SET name = ?, text = ?, for = ?, course = ?, visible = ? WHERE id = ?`;
-
+	const sql = `UPDATE posts SET name = ?, text = ?, for = ?, course = ?, visible = ?, date_created = ? WHERE id = ?`;
+	const today = new Date();
+	const formattedDate = [
+		String(today.getDate()).padStart(2, '0'),
+		String(today.getMonth() + 1).padStart(2, '0'),
+		today.getFullYear()
+	].join('.');
 	return new Promise((resolve, reject) => {
-		db.run(sql, [name, text, forField, course, visible, id], function (err) {
+		db.run(sql, [name, text, forField, course, visible, formattedDate, id], function (err) {
 			if (err) {
 				console.error("Ошибка базы данных:", err.message);
 				return reject(new Error("Ошибка обновления поста"));

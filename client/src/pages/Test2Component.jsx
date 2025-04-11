@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './iindex.css'
+import { addPost } from '../services/workWithBd';
 
 const AdminPage2 = () => {
 
@@ -8,6 +9,7 @@ const AdminPage2 = () => {
     const [courseStudent, setCourseStudent] = useState(null); //UseState for couse of student
     const [title, setTitle] = useState(''); // UseState for Posts title
     const [content, setContent] = useState(''); // UseState for Posts content
+    const [publicPost, setPublicPost] = useState(false); // UseState for visible content
     const [styles, setStyles] = useState({
         color: '#000000',
         fontSize: '16px',
@@ -45,7 +47,7 @@ const AdminPage2 = () => {
         const range = selection.getRangeAt(0);
         const selectedText = range.toString();
         if (!selectedText) {
-            setStyles({...styles, color: '#000', fontSize: '14px', fontWeight: 'normal', fontStyle: 'normal'})  
+            setStyles({ ...styles, color: '#000', fontSize: '14px', fontWeight: 'normal', fontStyle: 'normal' })
             return
         };
 
@@ -64,7 +66,7 @@ const AdminPage2 = () => {
             setContent(editorRef.current.innerHTML);
         }
         restoreSelection(); // Восстанавливаем курсор
-        
+
     };
 
     // Обработчик загрузки изображения
@@ -78,27 +80,16 @@ const AdminPage2 = () => {
 
     // Автоматически применяем стили при их изменении
     useEffect(() => {
-        applyStyleToSelection(); 
+        applyStyleToSelection();
     }, [styles.color, styles.fontSize, styles.fontWeight, styles.fontStyle]);
 
     // Сохраняем пост на сервер
-    const savePost = async () => {
-        try {   
-            const formData = new FormData();
-            formData.append('title', title);
-            formData.append('content', content);
-            if (image) {
-                formData.append('image', image); // Добавляем файл изображения
-            }
-            await axios.post('http://localhost:3000/posts', formData);
-            alert('Пост сохранен!');
-            setTitle('');
-            setContent('');
-            setImage(null);
-            setImagePreview('');
-        } catch (error) {
-            console.error('Ошибка:', error);
-        }
+    const savePost = () => {
+        addPost(title, content, typeVisible, publicPost, courseStudent)
+        setTitle('');
+        setContent('');
+        setImage(null);
+        setImagePreview('');
     };
 
     return (
@@ -188,6 +179,9 @@ const AdminPage2 = () => {
                     <option value="3">3 курс</option>
                     <option value="4">4 курс</option>
                 </select>
+            </div>
+            <div className="publicPost">
+                <img src={publicPost ? "./img/visible.svg" : "./img/unvisible.png"} alt="visible" className={publicPost ? 'visible-img' : "unvisible-img"} onClick={setPublicPost(!publicPost)} />
             </div>
             <button className='button_save_post' onClick={savePost}>Сохранить пост</button>
         </div>
